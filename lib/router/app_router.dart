@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/features/dashboard/screens/dashboard_screen.dart';
 
 import '../features/recurrings/screens/recurring_screen.dart';
@@ -72,22 +73,22 @@ class ScaffoldWithBottomNav extends StatelessWidget {
           NavigationDestination(
             icon: Icon(Icons.dashboard_outlined),
             selectedIcon: Icon(Icons.dashboard),
-            label: 'Dashboard',
+            label: AppStrings.dashboard,
           ),
           NavigationDestination(
             icon: Icon(Icons.receipt_long_outlined),
             selectedIcon: Icon(Icons.receipt_long),
-            label: 'Transactions',
+            label: AppStrings.transactions,
           ),
           NavigationDestination(
             icon: Icon(Icons.repeat_outlined),
             selectedIcon: Icon(Icons.repeat),
-            label: 'Recurring',
+            label: AppStrings.recurring,
           ),
           NavigationDestination(
             icon: Icon(Icons.settings_outlined),
             selectedIcon: Icon(Icons.settings),
-            label: 'Settings',
+            label: AppStrings.settings,
           ),
         ],
       ),
