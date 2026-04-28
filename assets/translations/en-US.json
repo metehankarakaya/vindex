@@ -1,0 +1,25 @@
+{
+  "dashboard": "Dashboard",
+  "transactions": "Transactions",
+  "instant": "Instant",
+  "recurring": "Recurring",
+  "settings": "Settings",
+
+  "income": "Income",
+  "expense": "Expense",
+
+  "transactionDescription": "Transaction description",
+  "saveTransaction": "Save transaction",
+
+  "noTransactionsYet": "No transactions yet",
+
+  "market": "Market",
+  "restaurant": "Restaurant",
+  "transport": "Transport",
+  "subscription": "Subscription",
+  "bills": "Bills",
+  "health": "Health",
+  "entertainment": "Entertainment",
+  "salary": "Salary",
+  "other": "Other"
+}

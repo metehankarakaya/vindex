@@ -1,0 +1,25 @@
+{
+  "dashboard": "Ana Sayfa",
+  "transactions": "İşlemler",
+  "instant": "Anlık",
+  "recurring": "Tekrarlayan",
+  "settings": "Ayarlar",
+
+  "income": "Gelir",
+  "expense": "Gider",
+
+  "transactionDescription": "İşlem açıklaması",
+  "saveTransaction": "İşlemi kaydet",
+
+  "noTransactionsYet": "Henüz işlem yok",
+
+  "market": "Market",
+  "restaurant": "Restoran",
+  "transport": "Ulaşım",
+  "subscription": "Abonelik",
+  "bills": "Faturalar",
+  "health": "Sağlık",
+  "entertainment": "Eğlence",
+  "salary": "Maaş",
+  "other": "Diğer"
+}
