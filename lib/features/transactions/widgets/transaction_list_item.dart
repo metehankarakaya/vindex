@@ -13,7 +13,8 @@ class TransactionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final formattedAmount = formatter.format(transaction.amountCents / 100);
 
     final bool isExpense = transaction.type == TransactionType.expense;

@@ -15,6 +15,12 @@ class RecurringTransactionListItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final formattedAmount = formatter.format(recurringTransaction.amountCents / 100);
+
+    final bool isExpense = recurringTransaction.type == TransactionType.expense;
+    final categoryColor = colorForCategory(recurringTransaction.category);
 
     String formatDateRange(DateTime startDate, DateTime? endDate) {
       final dateFormat = DateFormat('dd MMMM yyyy', context.locale.toString());
@@ -25,14 +31,8 @@ class RecurringTransactionListItem extends ConsumerWidget {
       return "$start - ${dateFormat.format(endDate)}";
     }
 
-    final colorScheme = Theme.of(context).colorScheme;
-    final formattedAmount = formatter.format(recurringTransaction.amountCents / 100);
-
-    final bool isExpense = recurringTransaction.type == TransactionType.expense;
-    final categoryColor = colorForCategory(recurringTransaction.category);
-
     final Color amountColor = isExpense
-      ? Colors.redAccent.shade400
+      ? colorScheme.error
       : const Color(0xFF10B981);
 
     return Opacity(
