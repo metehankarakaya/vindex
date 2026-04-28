@@ -30,11 +30,24 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
 
   bool get _isFormValid {
     final amount = _formatter.tryParse(_amountController.text.trim());
-    return _selectedCategory != null &&
+    final title = _titleController.text.trim();
+    return title.isNotEmpty &&
+      _selectedCategory != null &&
       _selectedFrequency != null &&
       _startDate != null &&
       amount != null &&
       amount > 0;
+  }
+
+  DateTime? get _minEndDate {
+    if (_startDate == null || _selectedFrequency == null) return _startDate;
+
+    return switch (_selectedFrequency!) {
+      RecurringFrequency.daily => _startDate!.add(const Duration(days: 1)),
+      RecurringFrequency.weekly => _startDate!.add(const Duration(days: 7)),
+      RecurringFrequency.monthly => DateTime(_startDate!.year, _startDate!.month + 1, _startDate!.day),
+      RecurringFrequency.yearly => DateTime(_startDate!.year + 1, _startDate!.month, _startDate!.day),
+    };
   }
 
   void _saveTransaction() async {
@@ -114,6 +127,7 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
             const SizedBox(height: 24),
             TextField(
               controller: _titleController,
+              onChanged: (_) => setState(() {}),
               maxLength: 50,
               decoration: InputDecoration(
                 counterText: "",
@@ -141,7 +155,10 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
             FrequencySelector(
               selectedFrequency: _selectedFrequency,
               onFrequencySelected: (val) {
-                setState(() => _selectedFrequency = val);
+                setState(() {
+                  _selectedFrequency = val;
+                  _endDate = null;
+                });
               },
             ),
             const SizedBox(height: 24),
@@ -150,13 +167,18 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
               selectedDate: _startDate,
               firstDate: DateTime.now(),
               hintText: AppStrings.pickStartDate.tr(),
-              onDateSelected: (picked) => setState(() => _startDate = picked),
+              onDateSelected: (picked) {
+                setState(() {
+                  _startDate = picked;
+                  _endDate = null;
+                });
+              },
             ),
             const SizedBox(height: 24),
             DatePickerField(
               label: AppStrings.endDateOptional.tr(),
               selectedDate: _endDate,
-              firstDate: _startDate ?? DateTime.now(),
+              firstDate: _minEndDate ?? DateTime.now(),
               hintText: AppStrings.pickEndDate.tr(),
               onDateSelected: (picked) => setState(() => _endDate = picked),
             ),
