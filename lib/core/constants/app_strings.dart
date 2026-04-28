@@ -13,6 +13,16 @@ class AppStrings {
 
   static const String noTransactionsYet = "noTransactionsYet";
 
+  static const String daily = "daily";
+  static const String weekly = "weekly";
+  static const String monthly = "monthly";
+  static const String yearly = "yearly";
+
+  static const String startDate = "startDate";
+  static const String pickStartDate = "pickStartDate";
+  static const String endDateOptional = "endDateOptional";
+  static const String pickEndDate = "pickEndDate";
+
   static const String market = "market";
   static const String restaurant = "restaurant";
   static const String transport = "transport";

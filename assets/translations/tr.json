@@ -13,6 +13,16 @@
 
   "noTransactionsYet": "Henüz işlem yok",
 
+  "daily": "Günlük",
+  "weekly": "Haftalık",
+  "monthly": "Aylık",
+  "yearly": "Yıllık",
+
+  "startDate": "Başlangıç Tarihi",
+  "pickStartDate": "Başlangıç Tarihi Seçin",
+  "endDateOptional": "Bitiş Tarihi (İsteğe bağlı)",
+  "pickEndDate": "Bitiş Tarihi Seçin",
+
   "market": "Market",
   "restaurant": "Restoran",
   "transport": "Ulaşım",

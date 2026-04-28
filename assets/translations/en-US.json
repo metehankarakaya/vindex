@@ -13,6 +13,16 @@
 
   "noTransactionsYet": "No transactions yet",
 
+  "daily": "Daily",
+  "weekly": "Weekly",
+  "monthly": "Monthly",
+  "yearly": "Yearly",
+
+  "startDate": "Start Date",
+  "pickStartDate": "Select Start Date",
+  "endDateOptional": "End Date (Optional)",
+  "pickEndDate": "Select End Date",
+
   "market": "Market",
   "restaurant": "Restaurant",
   "transport": "Transport",
