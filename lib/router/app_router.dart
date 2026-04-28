@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vindex/core/constants/app_strings.dart';
@@ -59,6 +60,7 @@ class ScaffoldWithBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.locale;
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
@@ -69,26 +71,26 @@ class ScaffoldWithBottomNav extends StatelessWidget {
             initialLocation: index == navigationShell.currentIndex
           );
         },
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.dashboard_outlined),
-            selectedIcon: Icon(Icons.dashboard),
-            label: AppStrings.dashboard,
+            icon: const Icon(Icons.dashboard_outlined),
+            selectedIcon: const Icon(Icons.dashboard),
+            label: AppStrings.dashboard.tr(),
           ),
           NavigationDestination(
-            icon: Icon(Icons.receipt_long_outlined),
-            selectedIcon: Icon(Icons.receipt_long),
-            label: AppStrings.transactions,
+            icon: const Icon(Icons.receipt_long_outlined),
+            selectedIcon: const Icon(Icons.receipt_long),
+            label: AppStrings.transactions.tr(),
           ),
           NavigationDestination(
-            icon: Icon(Icons.repeat_outlined),
-            selectedIcon: Icon(Icons.repeat),
-            label: AppStrings.recurring,
+            icon: const Icon(Icons.repeat_outlined),
+            selectedIcon: const Icon(Icons.repeat),
+            label: AppStrings.recurring.tr(),
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings),
-            label: AppStrings.settings,
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings),
+            label: AppStrings.settings.tr(),
           ),
         ],
       ),

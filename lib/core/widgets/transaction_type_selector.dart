@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:vindex/core/constants/app_strings.dart';
 
@@ -16,16 +17,16 @@ class TransactionTypeSelector extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: SegmentedButton<TransactionType>(
-        segments: const [
+        segments: [
           ButtonSegment(
             value: TransactionType.expense,
-            label: Text(AppStrings.expense),
-            icon: Icon(Icons.arrow_downward, size: 18),
+            label: Text(AppStrings.expense.tr()),
+            icon: const Icon(Icons.arrow_downward, size: 18),
           ),
           ButtonSegment(
             value: TransactionType.income,
-            label: Text(AppStrings.income),
-            icon: Icon(Icons.arrow_upward, size: 18),
+            label: Text(AppStrings.income.tr()),
+            icon: const Icon(Icons.arrow_upward, size: 18),
           ),
         ],
         selected: {selectedType},

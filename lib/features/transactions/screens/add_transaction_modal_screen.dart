@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/features/transactions/screens/add_transaction_screen.dart';
@@ -32,8 +33,8 @@ class AddTransactionModalScreen extends StatelessWidget {
             const SizedBox(height: 16),
             TabBar(
               tabs: [
-                Tab(text: AppStrings.instant),
-                Tab(text: AppStrings.recurring),
+                Tab(text: AppStrings.instant.tr()),
+                Tab(text: AppStrings.recurring.tr()),
               ],
             ),
             Expanded(

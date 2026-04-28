@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/core/widgets/empty_holder.dart';
 import 'package:vindex/features/transactions/providers/transaction_provider.dart';
+import 'package:vindex/features/transactions/widgets/transaction_list_item.dart';
 
 class TransactionsScreen extends ConsumerWidget {
   const TransactionsScreen({super.key});
@@ -14,8 +16,8 @@ class TransactionsScreen extends ConsumerWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
-            title: Text(AppStrings.transactions),
+          SliverAppBar(
+            title: Text(AppStrings.transactions.tr()),
             floating: true,
             snap: true,
           ),
@@ -26,18 +28,14 @@ class TransactionsScreen extends ConsumerWidget {
               sliver: SliverList.builder(
                 itemCount: transactions.length,
                 itemBuilder: (context, index) => Card(
-                  child: ListTile(
-                    title: Text(
-                      transactions[index].title.isNotEmpty ? transactions[index].title : transactions[index].category
-                    ),
-                  ),
+                  child: TransactionListItem(transaction: transactions[index])
                 ),
               ),
             ) : SliverFillRemaining(
               hasScrollBody: false,
               child: EmptyHolder(
                 iconData: Icons.receipt_long_outlined,
-                title: AppStrings.noTransactionsYes,
+                title: AppStrings.noTransactionsYet.tr(),
               ),
             ),
             loading: () => SliverFillRemaining(

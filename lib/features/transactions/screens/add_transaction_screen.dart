@@ -114,7 +114,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
               maxLength: 50,
               decoration: InputDecoration(
                 counterText: "",
-                hintText: AppStrings.transactionSum,
+                hintText: AppStrings.transactionDescription.tr(),
                 filled: true,
                 fillColor: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                 border: OutlineInputBorder(
@@ -126,7 +126,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
             ),
             const SizedBox(height: 24),
             SaveTransactionButton(
-              label: AppStrings.saveTransaction,
+              label: AppStrings.saveTransaction.tr(),
               onPressed: _isFormValid ? _saveTransaction : null,
             ),
             const SizedBox(height: 24),
