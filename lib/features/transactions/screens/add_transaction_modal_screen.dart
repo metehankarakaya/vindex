@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:vindex/core/constants/app_strings.dart';
+import 'package:vindex/features/recurrings/screens/add_recurring_transaction_screen.dart';
 import 'package:vindex/features/transactions/screens/add_transaction_screen.dart';
 
 class AddTransactionModalScreen extends StatelessWidget {
@@ -42,7 +43,7 @@ class AddTransactionModalScreen extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   AddTransactionScreen(),
-                  const SizedBox()
+                  AddRecurringTransactionScreen()
                 ],
               ),
             )
