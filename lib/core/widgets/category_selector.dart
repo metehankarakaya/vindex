@@ -19,7 +19,7 @@ class CategorySelector extends StatelessWidget {
         crossAxisCount: 3,
         crossAxisSpacing: 4.0,
         mainAxisSpacing: 4.0,
-        childAspectRatio: 2.2,
+        childAspectRatio: 2.6,
       ),
       itemCount: categories.length,
       itemBuilder: (context, index) {
