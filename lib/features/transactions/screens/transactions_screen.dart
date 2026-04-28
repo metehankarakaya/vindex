@@ -27,8 +27,13 @@ class TransactionsScreen extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               sliver: SliverList.builder(
                 itemCount: transactions.length,
-                itemBuilder: (context, index) => Card(
-                  child: TransactionListItem(transaction: transactions[index])
+                itemBuilder: (context, index) => Dismissible(
+                  key: Key(transactions[index].id),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (_) => ref.read(transactionDaoProvider).deleteTransaction(transactions[index].id),
+                  child: Card(
+                    child: TransactionListItem(transaction: transactions[index])
+                  ),
                 ),
               ),
             ) : SliverFillRemaining(
