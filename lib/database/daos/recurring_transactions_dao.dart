@@ -27,6 +27,10 @@ class RecurringTransactionsDao extends DatabaseAccessor<AppDatabase> with _$Recu
     return (delete(recurringTransactions)..where((r) => r.id.equals(id))).go();
   }
 
+  Future<void> deleteAllRecurringTransactions() {
+    return delete(recurringTransactions).go();
+  }
+
   Future<void> processRecurringTransactions() async {
     final now = DateTime.now();
 

@@ -30,4 +30,8 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
     return (delete(transactions)..where((t) => t.id.equals(id))).go();
   }
 
+  Future<void> deleteAllTransactions() {
+    return delete(transactions).go();
+  }
+
 }
