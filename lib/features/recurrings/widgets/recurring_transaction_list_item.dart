@@ -51,12 +51,34 @@ class RecurringTransactionListItem extends ConsumerWidget {
             size: 24,
           ),
         ),
-        title: Text(
-          "${recurringTransaction.title} (${recurringTransaction.frequency.name.tr()})",
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: colorScheme.onSurface,
-          ),
+        title: Row(
+          children: [
+            Flexible(
+              child: Text(
+                recurringTransaction.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: colorScheme.onSurface,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: colorScheme.secondaryContainer.withValues(alpha: 0.5),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Text(
+                recurringTransaction.frequency.name.tr(),
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: colorScheme.onSecondaryContainer,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
         ),
         subtitle: Text(
           formatDateRange(recurringTransaction.startDate, recurringTransaction.endDate),

@@ -6,6 +6,7 @@ import 'package:vindex/features/dashboard/widgets/total_balance_title.dart';
 
 import '../../../core/constants/app_strings.dart';
 import '../../../core/models/transactions_table.dart';
+import '../../../core/widgets/empty_holder.dart';
 import '../../transactions/screens/add_transaction_modal.dart';
 import '../../transactions/widgets/transaction_list_item.dart';
 import '../provider/dashboard_provider.dart';
@@ -16,53 +17,117 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     final recentTransactions = ref.watch(recentTransactionsProvider);
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              title: Text("Vindex"),
-            ),
-            SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: .start,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 120.0,
+            pinned: true,
+            stretch: true,
+            elevation: 0,
+            backgroundColor: theme.scaffoldBackgroundColor,
+            flexibleSpace: FlexibleSpaceBar(
+              stretchModes: const [
+                StretchMode.zoomBackground,
+                StretchMode.blurBackground,
+              ],
+              centerTitle: false,
+              titlePadding: const EdgeInsetsDirectional.only(start: 16, bottom: 16),
+              title: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16.0, 8.0, 0.0, 8.0),
-                    child: TotalBalanceTitle(),
+                  Text(
+                    "Vindex",
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: -0.5,
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16.0, 8.0, 0.0, 8.0),
-                    child: BalanceCard(),
-                  ),
-                  Row(
-                    mainAxisAlignment: .spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 16.0),
-                        child: TransactionSummaryCard(type: TransactionType.income),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 16.0, 16.0),
-                        child: TransactionSummaryCard(type: TransactionType.expense),
-                      )
-                    ],
-                  ),
-                  Text(AppStrings.recentTransactions.tr(), style: Theme.of(context).textTheme.headlineSmall,),
                 ],
               ),
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      colorScheme.primary.withValues(alpha: 0.05),
+                      theme.scaffoldBackgroundColor,
+                    ],
+                  ),
+                ),
+              ),
             ),
-            SliverList.builder(
+          ),
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: .start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 8.0, 0.0, 8.0),
+                  child: TotalBalanceTitle(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 8.0, 0.0, 8.0),
+                  child: BalanceCard(),
+                ),
+                Row(
+                  mainAxisAlignment: .spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16.0, 8.0, 4.0, 16.0),
+                      child: TransactionSummaryCard(type: TransactionType.income),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(4.0, 8.0, 16.0, 16.0),
+                      child: TransactionSummaryCard(type: TransactionType.expense),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            sliver: SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 8.0, top: 16.0),
+                child: Text(
+                  AppStrings.recentTransactions.tr(),
+                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ),
+          recentTransactions.isNotEmpty
+          ? SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            sliver: SliverList.separated(
+              separatorBuilder: (context, index) => Divider(
+                height: 1,
+                indent: 70,
+                color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+              ),
               itemCount: recentTransactions.length,
               itemBuilder: (context, index) => TransactionListItem(
                 transaction: recentTransactions[index],
               ),
             ),
-          ],
-        ),
+          ) : SliverFillRemaining(
+            hasScrollBody: false,
+            child: EmptyHolder(
+              iconData: Icons.receipt_long_outlined,
+              title: AppStrings.noTransactionsYet.tr(),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => AddTransactionModal.show(context),

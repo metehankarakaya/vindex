@@ -11,29 +11,49 @@ class TransactionsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     final transactionAsync = ref.watch(transactionStreamProvider);
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: Text(AppStrings.transactions.tr()),
-            floating: true,
-            snap: true,
+            expandedHeight: 120.0,
+            pinned: true,
+            stretch: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(AppStrings.transactions.tr(), style: theme.textTheme.titleLarge),
+              titlePadding: const EdgeInsetsDirectional.only(start: 16, bottom: 16),
+              centerTitle: false,
+            ),
           ),
           transactionAsync.when(
             data: (transactions) => transactions.isNotEmpty
               ? SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              sliver: SliverList.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              sliver: SliverList.separated(
+                separatorBuilder: (context, index) => Divider(
+                  height: 1,
+                  indent: 56,
+                  color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+                ),
                 itemCount: transactions.length,
                 itemBuilder: (context, index) => Dismissible(
                   key: Key(transactions[index].id),
                   direction: DismissDirection.endToStart,
                   onDismissed: (_) => ref.read(transactionDaoProvider).deleteTransaction(transactions[index].id),
-                  child: Card(
-                    child: TransactionListItem(transaction: transactions[index])
+                  background: Container(
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 20),
+                    decoration: BoxDecoration(
+                      color: colorScheme.errorContainer,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(Icons.delete_outline, color: colorScheme.error),
                   ),
+                  child: TransactionListItem(transaction: transactions[index]),
                 ),
               ),
             ) : SliverFillRemaining(
