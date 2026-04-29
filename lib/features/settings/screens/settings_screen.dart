@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vindex/core/constants/app_strings.dart';
+import 'package:vindex/core/providers/package_info_provider.dart';
 import 'package:vindex/features/settings/widgets/sliver_section_header.dart';
 
 import '../../../core/providers/theme_provider.dart';
@@ -35,7 +36,7 @@ class SettingsScreen extends ConsumerWidget {
               centerTitle: false,
             ),
           ),
-          SliverSectionHeader(title: AppStrings.theme.tr().toUpperCase(),),
+          SliverSectionHeader(title: AppStrings.theme.tr().toUpperCase()),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
@@ -45,30 +46,21 @@ class SettingsScreen extends ConsumerWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 child: Column(
                   children: [
-                    Card(
-                      elevation: 0,
-                      color: colorScheme.surfaceContainerLow,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                      child: Column(
-                        children: [
-                          SettingsListItem(
-                            leadingIcon: Icons.palette_outlined,
-                            title: AppStrings.theme.tr(),
-                            subtitle: switch (themeMode) {
-                              ThemeMode.light => AppStrings.lightMode.tr(),
-                              ThemeMode.dark => AppStrings.darkMode.tr(),
-                              ThemeMode.system => AppStrings.systemMode.tr(),
-                            },
-                            onTap: () => ThemeSelector.show(context),
-                            showDivider: true,
-                          ),
-                          SettingsListItem(
-                            leadingIcon: Icons.language,
-                            title: AppStrings.changeLanguage.tr(),
-                            onTap: () => LanguageSelector.show(context),
-                          ),
-                        ],
-                      ),
+                    SettingsListItem(
+                      leadingIcon: Icons.palette_outlined,
+                      title: AppStrings.theme.tr(),
+                      subtitle: switch (themeMode) {
+                        ThemeMode.light => AppStrings.lightMode.tr(),
+                        ThemeMode.dark => AppStrings.darkMode.tr(),
+                        ThemeMode.system => AppStrings.systemMode.tr(),
+                      },
+                      onTap: () => ThemeSelector.show(context),
+                      showDivider: true,
+                    ),
+                    SettingsListItem(
+                      leadingIcon: Icons.language,
+                      title: AppStrings.changeLanguage.tr(),
+                      onTap: () => LanguageSelector.show(context),
                     ),
                   ],
                 ),
@@ -76,7 +68,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 12)),
-          SliverSectionHeader(title: AppStrings.dataManagementTitle.tr().toUpperCase(),),
+          SliverSectionHeader(title: AppStrings.dataManagementTitle.tr().toUpperCase()),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
@@ -88,13 +80,42 @@ class SettingsScreen extends ConsumerWidget {
                   leadingIcon: Icons.storage_rounded,
                   title: AppStrings.dataManagementTitle.tr(),
                   subtitle: AppStrings.dataManagementSubtitle.tr(),
-                  trailing: const Icon(Icons.chevron_right),
+                  trailing: const Icon(Icons.chevron_right, size: 20),
                   onTap: () => context.push("/settings/data-management"),
                 ),
               ),
             ),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ref.watch(packageInfoProvider).when(
+                data: (info) => Column(
+                  mainAxisAlignment: .end,
+                  children: [
+                    Icon(
+                      Icons.account_balance_wallet_outlined,
+                      size: 24,
+                      color: colorScheme.primary.withValues(alpha: 0.2),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Vindex v${info.version} (${info.buildNumber})",
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.1,
+                      ),
+                    ),
+                  ],
+                ),
+                loading: () => const SizedBox.shrink(),
+                error: (_, __) => const Text("v1.0.0"),
+              ),
+            ),
+          )
         ],
       ),
     );
