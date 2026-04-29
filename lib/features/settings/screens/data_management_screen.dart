@@ -11,6 +11,9 @@ class DataManagementScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
       appBar: AppBar(title: Text(AppStrings.dataManagement.tr())),
       body: ListView(
@@ -28,10 +31,10 @@ class DataManagementScreen extends ConsumerWidget {
             subtitle: Text(AppStrings.importSubtitle.tr()),
             onTap: () {},
           ),
-          const Divider(),
+          const Divider(indent: 16, endIndent: 16),
           _SectionTitle(title: AppStrings.reset.tr(), isDanger: true),
           ListTile(
-            leading: const Icon(Icons.history, color: Colors.red),
+            leading: Icon(Icons.history, color: colorScheme.error),
             title: Text(AppStrings.clearTransactions.tr()),
             onTap: () => _confirmAction(
               context,
@@ -42,7 +45,7 @@ class DataManagementScreen extends ConsumerWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.event_repeat, color: Colors.red),
+            leading: Icon(Icons.event_repeat, color: colorScheme.error),
             title: Text(AppStrings.clearRecurring.tr()),
             onTap: () => _confirmAction(
               context,
@@ -53,10 +56,10 @@ class DataManagementScreen extends ConsumerWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.factory_outlined, color: Colors.red),
+            leading: Icon(Icons.factory_outlined, color: colorScheme.error),
             title: Text(
               AppStrings.factoryReset.tr(),
-              style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              style: TextStyle(color: colorScheme.error, fontWeight: FontWeight.bold),
             ),
             onTap: () => _confirmAction(
               context,
@@ -76,20 +79,29 @@ class DataManagementScreen extends ConsumerWidget {
       BuildContext context,
       String message,
       Future<void> Function() onConfirm) async {
+    final colorScheme = Theme.of(context).colorScheme;
+
     final bool? result = await showDialog<bool>(
       context: context,
+      barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: Text(AppStrings.areYouSure.tr()),
+        title: Row(
+          children: [
+            Icon(Icons.warning_amber_rounded, color: colorScheme.error),
+            const SizedBox(width: 12),
+            Text(AppStrings.areYouSure.tr()),
+          ],
+        ),
         content: Text("$message\n\n${AppStrings.cannotBeUndone.tr()}"),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: Text(AppStrings.cancel.tr()),
+            child: Text(AppStrings.cancel.tr(), style: TextStyle(color: colorScheme.outline)),
           ),
           FilledButton(
             style: FilledButton.styleFrom(
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
+              backgroundColor: colorScheme.error,
+              foregroundColor: colorScheme.onError,
             ),
             onPressed: () => Navigator.pop(context, true),
             child: Text(AppStrings.yesDelete.tr()),
@@ -106,6 +118,8 @@ class DataManagementScreen extends ConsumerWidget {
           SnackBar(
             content: Text(AppStrings.actionCompleted.tr()),
             behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(16),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         );
       }
@@ -125,14 +139,14 @@ class _SectionTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
       child: Text(
-        title,
+        title.toUpperCase(),
         style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
+          fontSize: 11,
+          fontWeight: FontWeight.w800,
           color: isDanger
-            ? Colors.red.withValues(alpha: 0.8)
+            ? colorScheme.error.withValues(alpha: 0.8)
             : colorScheme.primary.withValues(alpha: 0.7),
-          letterSpacing: 1.2,
+          letterSpacing: 1.5,
         ),
       ),
     );
