@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vindex/core/widgets/language_selector.dart';
 import 'package:vindex/core/widgets/theme_selector.dart';
 
 import '../../../core/providers/theme_provider.dart';
@@ -29,7 +30,12 @@ class SettingsScreen extends ConsumerWidget {
                 },
               ),
               onTap: () => ThemeSelector.show(context),
-            )
+            ),
+            ListTile(
+              leading: const Icon(Icons.language),
+              title: Text("Dil Değiştir"),
+              onTap: () => LanguageSelector.show(context),
+            ),
           ],
         ),
       )
