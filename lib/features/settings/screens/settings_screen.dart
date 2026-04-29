@@ -8,6 +8,7 @@ import 'package:vindex/features/settings/widgets/sliver_section_header.dart';
 import '../../../core/providers/theme_provider.dart';
 import '../../../core/widgets/language_selector.dart';
 import '../../../core/widgets/theme_selector.dart';
+import '../widgets/settings_list_item.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -44,25 +45,30 @@ class SettingsScreen extends ConsumerWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 child: Column(
                   children: [
-                    ListTile(
-                      leading: const Icon(Icons.palette_outlined),
-                      title: Text(AppStrings.theme.tr()),
-                      subtitle: Text(
-                        switch (themeMode) {
-                          ThemeMode.light => AppStrings.lightMode.tr(),
-                          ThemeMode.dark => AppStrings.darkMode.tr(),
-                          ThemeMode.system => AppStrings.systemMode.tr(),
-                        },
+                    Card(
+                      elevation: 0,
+                      color: colorScheme.surfaceContainerLow,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      child: Column(
+                        children: [
+                          SettingsListItem(
+                            leadingIcon: Icons.palette_outlined,
+                            title: AppStrings.theme.tr(),
+                            subtitle: switch (themeMode) {
+                              ThemeMode.light => AppStrings.lightMode.tr(),
+                              ThemeMode.dark => AppStrings.darkMode.tr(),
+                              ThemeMode.system => AppStrings.systemMode.tr(),
+                            },
+                            onTap: () => ThemeSelector.show(context),
+                            showDivider: true,
+                          ),
+                          SettingsListItem(
+                            leadingIcon: Icons.language,
+                            title: AppStrings.changeLanguage.tr(),
+                            onTap: () => LanguageSelector.show(context),
+                          ),
+                        ],
                       ),
-                      trailing: const Icon(Icons.expand_more, size: 20),
-                      onTap: () => ThemeSelector.show(context),
-                    ),
-                    Divider(height: 1, indent: 56, endIndent: 16, color: colorScheme.outlineVariant),
-                    ListTile(
-                      leading: const Icon(Icons.language),
-                      title: Text(AppStrings.changeLanguage.tr()),
-                      trailing: const Icon(Icons.expand_more, size: 20),
-                      onTap: () => LanguageSelector.show(context),
                     ),
                   ],
                 ),
@@ -78,10 +84,10 @@ class SettingsScreen extends ConsumerWidget {
                 elevation: 0,
                 color: colorScheme.surfaceContainerLow,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                child: ListTile(
-                  leading: const Icon(Icons.storage_rounded),
-                  title: Text(AppStrings.dataManagementTitle.tr()),
-                  subtitle: Text(AppStrings.dataManagementSubtitle.tr()),
+                child: SettingsListItem(
+                  leadingIcon: Icons.storage_rounded,
+                  title: AppStrings.dataManagementTitle.tr(),
+                  subtitle: AppStrings.dataManagementSubtitle.tr(),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => context.push("/settings/data-management"),
                 ),
