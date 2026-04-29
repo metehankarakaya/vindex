@@ -24,29 +24,40 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   late final TextEditingController _titleController;
   late final TextEditingController _amountController;
 
+  bool _isSaving = false;
+
   bool get _isFormValid {
     final amount = _formatter.tryParse(_amountController.text.trim());
     return _selectedCategory != null &&
       amount != null &&
-      amount > 0;
+      amount > 0 &&
+      !_isSaving;
   }
 
   void _saveTransaction() async {
-    String uuid = Uuid().v4();
-    final amount = _formatter.tryParse(_amountController.text.trim());
-    final int amountCent = (amount! * 100).round();
-    final entry = TransactionsCompanion(
-      id: Value(uuid),
-      title: Value(_titleController.text.trim()),
-      amountCents: Value(amountCent),
-      category: Value(_selectedCategory!),
-      type: Value(_selectedType),
-      createdAt: Value(DateTime.now()),
-    );
-    await ref.read(transactionDaoProvider).insertTransaction(entry);
-    if (mounted) Navigator.pop(context);
-  }
+    setState(() => _isSaving = true);
 
+    try {
+      String uuid = const Uuid().v4();
+      final amount = _formatter.tryParse(_amountController.text.trim());
+      final int amountCent = (amount! * 100).round();
+
+      final entry = TransactionsCompanion(
+        id: Value(uuid),
+        title: Value(_titleController.text.trim()),
+        amountCents: Value(amountCent),
+        category: Value(_selectedCategory!),
+        type: Value(_selectedType),
+        createdAt: Value(DateTime.now()),
+      );
+
+      await ref.read(transactionDaoProvider).insertTransaction(entry);
+
+      if (mounted) Navigator.pop(context);
+    } catch (e) {
+      if (mounted) setState(() => _isSaving = false);
+    }
+  }
 
   @override
   void initState() {
@@ -70,6 +81,10 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
+    final Color amountColor = _selectedType == TransactionType.expense
+      ? colorScheme.error
+      : const Color(0xFF10B981);
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -85,12 +100,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 fontSize: 56,
                 fontWeight: FontWeight.bold,
                 letterSpacing: -2,
-                color: colorScheme.onSurface,
+                color: amountColor,
               ),
               decoration: InputDecoration(
                 hintText: "₺0,00",
                 hintStyle: TextStyle(
-                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.3),
+                  color: amountColor.withValues(alpha: 0.2),
                 ),
                 border: InputBorder.none,
               ),
@@ -127,6 +142,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
             const SizedBox(height: 24),
             SaveTransactionButton(
               label: AppStrings.saveTransaction.tr(),
+              isLoading: _isSaving,
+              icon: Icons.check_circle_outline,
               onPressed: _isFormValid ? _saveTransaction : null,
             ),
             const SizedBox(height: 24),

@@ -34,11 +34,11 @@ class TransactionTypeSelector extends StatelessWidget {
         style: SegmentedButton.styleFrom(
           side: BorderSide(color: colorScheme.outlineVariant),
           selectedBackgroundColor: selectedType == TransactionType.expense
-            ? Colors.red.withValues(alpha: 0.1)
-            : Colors.green.withValues(alpha: 0.1),
+            ? colorScheme.error.withValues(alpha: 0.1)
+            : const Color(0xFF10B981).withValues(alpha: 0.1),
           selectedForegroundColor: selectedType == TransactionType.expense
-            ? Colors.red
-            : Colors.green,
+            ? colorScheme.error
+            : const Color(0xFF10B981),
         ),
       ),
     );

@@ -28,6 +28,8 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
   late final TextEditingController _titleController;
   late final TextEditingController _amountController;
 
+  bool _isSaving = false;
+
   bool get _isFormValid {
     final amount = _formatter.tryParse(_amountController.text.trim());
     final title = _titleController.text.trim();
@@ -36,7 +38,8 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
       _selectedFrequency != null &&
       _startDate != null &&
       amount != null &&
-      amount > 0;
+      amount > 0 &&
+      !_isSaving;
   }
 
   DateTime? get _minEndDate {
@@ -54,21 +57,29 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
     final amount = _formatter.tryParse(_amountController.text.trim());
     if (amount == null) return;
 
-    final int amountCent = (amount * 100).round();
-    final String uuid = const Uuid().v4();
+    setState(() => _isSaving = true);
 
-    final entry = RecurringTransactionsCompanion(
-      id: Value(uuid),
-      title: Value(_titleController.text.trim()),
-      amountCents: Value(amountCent),
-      category: Value(_selectedCategory!),
-      type: Value(_selectedType),
-      frequency: Value(_selectedFrequency!),
-      startDate: Value(_startDate!),
-      endDate: Value(_endDate),
-    );
-    await ref.read(recurringTransactionDaoProvider).insertRecurringTransactions(entry);
-    if (mounted) Navigator.pop(context);
+    try {
+      final int amountCent = (amount * 100).round();
+      final String uuid = const Uuid().v4();
+
+      final entry = RecurringTransactionsCompanion(
+        id: Value(uuid),
+        title: Value(_titleController.text.trim()),
+        amountCents: Value(amountCent),
+        category: Value(_selectedCategory!),
+        type: Value(_selectedType),
+        frequency: Value(_selectedFrequency!),
+        startDate: Value(_startDate!),
+        endDate: Value(_endDate),
+      );
+
+      await ref.read(recurringTransactionDaoProvider).insertRecurringTransactions(entry);
+
+      if (mounted) Navigator.pop(context);
+    } catch (e) {
+      if (mounted) setState(() => _isSaving = false);
+    }
   }
 
   @override
@@ -96,6 +107,10 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
+    final Color amountColor = _selectedType == TransactionType.expense
+      ? colorScheme.error
+      : const Color(0xFF10B981);
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -111,12 +126,12 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
                 fontSize: 56,
                 fontWeight: FontWeight.bold,
                 letterSpacing: -2,
-                color: colorScheme.onSurface,
+                color: amountColor,
               ),
               decoration: InputDecoration(
                 hintText: "₺0,00",
                 hintStyle: TextStyle(
-                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.3),
+                  color: amountColor.withValues(alpha: 0.2),
                 ),
                 border: InputBorder.none,
               ),
@@ -180,11 +195,13 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
               selectedDate: _endDate,
               firstDate: _minEndDate ?? DateTime.now(),
               hintText: AppStrings.pickEndDate.tr(),
-              onDateSelected: (picked) => setState(() => _endDate = picked),
+              onDateSelected: (DateTime? picked) => setState(() => _endDate = picked),
             ),
             const SizedBox(height: 24),
             SaveTransactionButton(
               label: AppStrings.saveTransaction.tr(),
+              isLoading: _isSaving,
+              icon: Icons.check_circle_outline,
               onPressed: _isFormValid ? _saveTransaction : null,
             ),
             const SizedBox(height: 24),

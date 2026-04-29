@@ -3,19 +3,29 @@ import 'package:flutter/material.dart';
 class SaveTransactionButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
-  const SaveTransactionButton({super.key, required this.label, required this.onPressed,});
+  final bool isLoading;
+  final IconData? icon;
+
+  const SaveTransactionButton({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    this.isLoading = false,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final bool isEnabled = onPressed != null;
+
+    final bool isEnabled = onPressed != null && !isLoading;
 
     return SizedBox(
       width: double.infinity,
       height: 56,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isEnabled ? onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: isEnabled
             ? colorScheme.primary
@@ -30,14 +40,34 @@ class SaveTransactionButton extends StatelessWidget {
           disabledBackgroundColor: colorScheme.onSurface.withValues(alpha: 0.12),
           disabledForegroundColor: colorScheme.onSurface.withValues(alpha: 0.38),
         ),
-        child: AnimatedDefaultTextStyle(
-          duration: const Duration(milliseconds: 200),
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            color: isEnabled ? colorScheme.onPrimary : colorScheme.onSurface.withValues(alpha: 0.38),
+        child: isLoading
+          ? SizedBox(
+          height: 24,
+          width: 24,
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+            color: colorScheme.onPrimary.withValues(alpha: 0.7),
           ),
-          child: Text(label),
+        )
+          : Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null) ... [
+              Icon(icon, size: 20),
+              const SizedBox(width: 8),
+            ],
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 200),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: isEnabled
+                  ? colorScheme.onPrimary
+                  : colorScheme.onSurface.withValues(alpha: 0.38),
+              ),
+              child: Text(label),
+            ),
+          ],
         ),
       ),
     );

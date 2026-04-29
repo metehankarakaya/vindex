@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/app_strings.dart';
+
 class DatePickerField extends StatelessWidget {
   final String label;
   final DateTime? selectedDate;
   final DateTime firstDate;
   final String hintText;
-  final Function(DateTime) onDateSelected;
+  final Function(DateTime?) onDateSelected;
 
   const DatePickerField({super.key, required this.label, required this.selectedDate, required this.firstDate, required this.hintText, required this.onDateSelected});
 
@@ -66,6 +68,13 @@ class DatePickerField extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+                if (selectedDate != null && label.contains(AppStrings.endDateOptional.tr()))
+                  IconButton(
+                    icon: Icon(Icons.close_rounded, size: 20, color: colorScheme.error),
+                    onPressed: () => onDateSelected(null as dynamic),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                  ),
                 const Spacer(),
                 Icon(
                   Icons.arrow_forward_ios_rounded,
