@@ -2,16 +2,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vindex/core/providers/database_provider.dart';
 import 'package:vindex/router/app_router.dart';
 
 import 'core/providers/shared_preferences_provider.dart';
 import 'core/providers/theme_provider.dart';
+import 'database/app_database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
   final prefs = await SharedPreferences.getInstance();
+
+  final db = AppDatabase();
+  await db.recurringTransactionsDao.processRecurringTransactions();
 
   runApp(
       EasyLocalization(
@@ -22,6 +27,7 @@ void main() async {
         child: ProviderScope(
           overrides: [
             sharedPreferencesProvider.overrideWithValue(prefs),
+            databaseProvider.overrideWithValue(db)
           ],
           child: const MyApp(),
         ),
@@ -45,7 +51,9 @@ class MyApp extends ConsumerWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF2563EB),
           brightness: Brightness.light,
+          surface: const Color(0xFFF8FAFC),
         ),
+        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
