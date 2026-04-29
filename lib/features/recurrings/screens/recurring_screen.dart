@@ -20,11 +20,11 @@ class RecurringScreen extends ConsumerWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 120.0,
+            expandedHeight: 100.0,
             pinned: true,
             stretch: true,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(AppStrings.recurring.tr(), style: theme.textTheme.titleLarge),
+              title: Text(AppStrings.recurring.tr(), style: theme.textTheme.titleMedium),
               titlePadding: const EdgeInsetsDirectional.only(start: 16, bottom: 16),
               centerTitle: false,
             ),

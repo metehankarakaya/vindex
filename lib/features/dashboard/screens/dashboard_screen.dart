@@ -29,28 +29,16 @@ class DashboardScreen extends ConsumerWidget {
             expandedHeight: 120.0,
             pinned: true,
             stretch: true,
-            elevation: 0,
-            backgroundColor: theme.scaffoldBackgroundColor,
             flexibleSpace: FlexibleSpaceBar(
-              stretchModes: const [
-                StretchMode.zoomBackground,
-                StretchMode.blurBackground,
-              ],
               centerTitle: false,
+              stretchModes: const [StretchMode.zoomBackground],
               titlePadding: const EdgeInsetsDirectional.only(start: 16, bottom: 16),
-              title: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Vindex",
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                ],
+              title: Text(
+                "Vindex",
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: -0.5,
+                ),
               ),
               background: Container(
                 decoration: BoxDecoration(
@@ -58,7 +46,7 @@ class DashboardScreen extends ConsumerWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      colorScheme.primary.withValues(alpha: 0.05),
+                      colorScheme.primary.withValues(alpha: 0.03),
                       theme.scaffoldBackgroundColor,
                     ],
                   ),

@@ -60,11 +60,11 @@ class TransactionsScreenState extends ConsumerState<TransactionsScreen> {
         controller: _scrollController,
         slivers: [
           SliverAppBar(
-            expandedHeight: 120.0,
+            expandedHeight: 100.0,
             pinned: true,
             stretch: true,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(AppStrings.transactions.tr(), style: theme.textTheme.titleLarge),
+              title: Text(AppStrings.transactions.tr(), style: theme.textTheme.titleMedium),
               titlePadding: const EdgeInsetsDirectional.only(start: 16, bottom: 16),
               centerTitle: false,
             ),
