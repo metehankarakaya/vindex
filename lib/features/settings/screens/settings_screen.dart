@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vindex/core/widgets/theme_selector.dart';
 
 import '../../../core/providers/theme_provider.dart';
 
@@ -13,18 +14,25 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Settings"),
-        actions: [
-          IconButton(
-            onPressed: () => ref.read(themeModeProvider.notifier).toggle(),
-            icon: Icon(
-                themeMode == ThemeMode.light ? Icons.light_mode : Icons.dark_mode
-            ),
-          )
-        ],
       ),
       body: Center(
-        child: Text("SettingsScreen"),
-      ),
+        child: Column(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.palette_outlined),
+              title: Text("Tema"),
+              subtitle: Text(
+                switch (themeMode) {
+                  ThemeMode.light => "Açık",
+                  ThemeMode.dark => "Koyu",
+                  ThemeMode.system => "Sistem Varsayılanı",
+                },
+              ),
+              onTap: () => ThemeSelector.show(context),
+            )
+          ],
+        ),
+      )
     );
   }
 }
