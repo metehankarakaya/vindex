@@ -15,28 +15,30 @@ class BalanceCard extends ConsumerWidget {
     final isHide = ref.watch(toggleProvider);
 
     return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Expanded(
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          alignment: Alignment.centerLeft,
-          child: Text(
-            isHide ? "₺******" : formattedAmount,
-            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              letterSpacing: -1,
+      children: [
+        Expanded(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              isHide ? "₺******" : formattedAmount,
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                letterSpacing: -1,
+              ),
             ),
           ),
         ),
-      ),
-      const SizedBox(width: 16),
-      IconButton(
-        onPressed: () => ref.read(toggleProvider.notifier).update((state) => !state),
-        icon: Icon(isHide ? Icons.visibility_off : Icons.visibility),
-        visualDensity: VisualDensity.compact,
-      ),
-    ],
+        const SizedBox(width: 16,),
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: IconButton(
+            onPressed: () => ref.read(toggleProvider.notifier).update((state) => !state),
+            icon: Icon(isHide ? Icons.visibility_off : Icons.visibility),
+            visualDensity: VisualDensity.compact,
+          ),
+        )
+      ],
     );
   }
 }
