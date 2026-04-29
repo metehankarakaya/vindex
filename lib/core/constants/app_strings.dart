@@ -11,6 +11,7 @@ class AppStrings {
   static const String totalBalance = "totalBalance";
   static const String transactionIncome = "transactionIncome";
   static const String transactionExpense = "transactionExpense";
+  static const String recentTransactions = "recentTransactions";
 
   static const String transactionDescription = "transactionDescription";
   static const String saveTransaction = "saveTransaction";

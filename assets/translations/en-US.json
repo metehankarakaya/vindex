@@ -11,6 +11,7 @@
   "totalBalance": "Total Balance",
   "transactionIncome": "Income",
   "transactionExpense": "Expense",
+  "recentTransactions": "Recent Transactions",
 
   "transactionDescription": "Transaction description",
   "saveTransaction": "Save transaction",
