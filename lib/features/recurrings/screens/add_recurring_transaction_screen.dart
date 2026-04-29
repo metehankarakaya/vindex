@@ -164,7 +164,11 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
             const SizedBox(height: 24),
             CategorySelector(
               selectedCategory: _selectedCategory,
-              onCategorySelected: (category) => setState(() => _selectedCategory = category)
+              onCategorySelected: (category) {
+                if (category != null && _selectedCategory != category) {
+                  setState(() => _selectedCategory = category);
+                }
+              },
             ),
             const SizedBox(height: 24),
             FrequencySelector(

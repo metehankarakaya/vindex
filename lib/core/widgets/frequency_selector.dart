@@ -35,7 +35,7 @@ class FrequencySelector extends StatelessWidget {
         final isSelected = selectedFrequency == frequency;
 
         return GestureDetector(
-          onTap: () => onFrequencySelected(isSelected ? null : frequency),
+          onTap: () => onFrequencySelected(frequency),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
