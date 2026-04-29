@@ -71,7 +71,7 @@ class DatePickerField extends StatelessWidget {
                 if (selectedDate != null && label.contains(AppStrings.endDateOptional.tr()))
                   IconButton(
                     icon: Icon(Icons.close_rounded, size: 20, color: colorScheme.error),
-                    onPressed: () => onDateSelected(null as dynamic),
+                    onPressed: () => onDateSelected(null),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                   ),
