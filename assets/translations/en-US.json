@@ -42,5 +42,27 @@
   "darkMode": "Dark Mode",
   "lightMode": "Light Mode",
   "systemMode": "System Default",
-  "changeLanguage": "Change Language"
+  "changeLanguage": "Change Language",
+
+  "dataManagementTitle": "Data Management & Reset",
+  "dataManagementSubtitle": "Backup, import, and cleanup operations",
+  "dataManagement": "Data Management",
+  "backup": "BACKUP",
+  "exportData": "Export Data",
+  "exportSubtitle": "Export your data as a file",
+  "importData": "Import Data",
+  "importSubtitle": "Restore data from backup file",
+  "reset": "RESET",
+  "clearTransactions": "Clear Transactions",
+  "clearTransactionsDesc": "All past income and expense records will be deleted.",
+  "clearRecurring": "Clear Recurring",
+  "clearRecurringDesc": "All automatic and recurring payment plans will be deleted.",
+  "factoryReset": "Factory Reset",
+  "factoryResetDesc": "The app will return to its initial state; all data, categories, and settings will be permanently deleted.",
+  "areYouSure": "Are you sure?",
+  "cannotBeUndone": "This action cannot be undone.",
+  "cancel": "Cancel",
+  "yesDelete": "Yes, Delete",
+  "actionCompleted": "Action completed successfully."
+
 }

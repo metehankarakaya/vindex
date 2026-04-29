@@ -42,6 +42,27 @@
   "darkMode": "Karanlık Mod",
   "lightMode": "Aydınlık Mod",
   "systemMode": "Sistem Varsayılanı",
-  "changeLanguage": "Dili Değiştir"
+  "changeLanguage": "Dili Değiştir",
+
+  "dataManagementTitle": "Veri Yönetimi ve Sıfırlama",
+  "dataManagementSubtitle": "Yedekleme, içe aktarma ve temizleme işlemleri",
+  "dataManagement": "Veri Yönetimi",
+  "backup": "YEDEKLEME",
+  "exportData": "Verileri Export Et",
+  "exportSubtitle": "Verilerinizi dosya olarak dışarı aktarın",
+  "importData": "Verileri Import Et",
+  "importSubtitle": "Yedek dosyasından verileri geri yükleyin",
+  "reset": "SIFIRLAMA",
+  "clearTransactions": "İşlemleri Temizle",
+  "clearTransactionsDesc": "Tüm geçmiş harcama ve gelir kayıtlarınız silinecek.",
+  "clearRecurring": "Tekrarlayanları Temizle",
+  "clearRecurringDesc": "Tüm otomatik ve tekrarlayan ödeme planlarınız silinecek.",
+  "factoryReset": "Fabrika Ayarlarına Dön",
+  "factoryResetDesc": "Uygulama ilk yüklendiği ana dönecek; tüm veriler, kategoriler ve ayarlar kalıcı olarak silinecek.",
+  "areYouSure": "Emin misiniz?",
+  "cannotBeUndone": "Bu işlem geri alınamaz.",
+  "cancel": "Vazgeç",
+  "yesDelete": "Evet, Sil",
+  "actionCompleted": "İşlem başarıyla tamamlandı."
 
 }

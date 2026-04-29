@@ -44,6 +44,26 @@ class AppStrings {
   static const String systemMode = "systemMode";
   static const String changeLanguage = "changeLanguage";
 
+  static const String dataManagementTitle = "dataManagementTitle";
+  static const String dataManagementSubtitle = "dataManagementSubtitle";
+  static const String dataManagement = "dataManagement";
+  static const String backup = "backup";
+  static const String exportData = "exportData";
+  static const String exportSubtitle = "exportSubtitle";
+  static const String importData = "importData";
+  static const String importSubtitle = "importSubtitle";
+  static const String reset = "reset";
+  static const String clearTransactions = "clearTransactions";
+  static const String clearTransactionsDesc = "clearTransactionsDesc";
+  static const String clearRecurring = "clearRecurring";
+  static const String clearRecurringDesc = "clearRecurringDesc";
+  static const String factoryReset = "factoryReset";
+  static const String factoryResetDesc = "factoryResetDesc";
+  static const String areYouSure = "areYouSure";
+  static const String cannotBeUndone = "cannotBeUndone";
+  static const String cancel = "cancel";
+  static const String yesDelete = "yesDelete";
+  static const String actionCompleted = "actionCompleted";
 
 }
 

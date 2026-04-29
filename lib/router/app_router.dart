@@ -5,6 +5,7 @@ import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/features/dashboard/screens/dashboard_screen.dart';
 
 import '../features/recurrings/screens/recurring_screen.dart';
+import '../features/settings/screens/data_management_screen.dart';
 import '../features/settings/screens/settings_screen.dart';
 import '../features/transactions/screens/transactions_screen.dart';
 
@@ -44,7 +45,13 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: "/settings",
-              builder: (context, state) => const SettingsScreen()
+              builder: (context, state) => const SettingsScreen(),
+              routes: [
+                GoRoute(
+                  path: "data-management",
+                  builder: (context, state) => const DataManagementScreen(),
+                ),
+              ]
             )
           ]
         ),

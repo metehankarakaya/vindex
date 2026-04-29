@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/core/widgets/language_selector.dart';
 import 'package:vindex/core/widgets/theme_selector.dart';
@@ -37,6 +38,13 @@ class SettingsScreen extends ConsumerWidget {
               leading: const Icon(Icons.language),
               title: Text(AppStrings.changeLanguage.tr()),
               onTap: () => LanguageSelector.show(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.storage_rounded),
+              title: Text(AppStrings.dataManagementTitle.tr()),
+              subtitle: Text(AppStrings.dataManagementSubtitle.tr()),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.push("/settings/data-management"),
             ),
           ],
         ),
