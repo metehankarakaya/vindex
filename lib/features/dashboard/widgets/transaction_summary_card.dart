@@ -29,31 +29,33 @@ class TransactionSummaryCard extends ConsumerWidget {
       : AppStrings.transactionExpense.tr();
 
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0)
-          ),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              icon,
-              size: 32,
-            ),
+            child: Icon(icon, size: 32),
           ),
         ),
-        const SizedBox(width: 12,),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title),
-            Text(
-              isHide
-                ? "₺******"
-                : formattedAmount
-            ),
-          ],
-        )
+        const SizedBox(width: 12),
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: Theme.of(context).textTheme.labelMedium),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  isHide ? "₺******" : formattedAmount,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

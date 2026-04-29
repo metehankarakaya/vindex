@@ -79,15 +79,19 @@ class DashboardScreen extends ConsumerWidget {
                   child: BalanceCard(),
                 ),
                 Row(
-                  mainAxisAlignment: .spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 8.0, 4.0, 16.0),
-                      child: TransactionSummaryCard(type: TransactionType.income),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16.0, 8.0, 4.0, 16.0),
+                        child: TransactionSummaryCard(type: TransactionType.income),
+                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(4.0, 8.0, 16.0, 16.0),
-                      child: TransactionSummaryCard(type: TransactionType.expense),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(4.0, 8.0, 16.0, 16.0),
+                        child: TransactionSummaryCard(type: TransactionType.expense),
+                      ),
                     ),
                   ],
                 ),
