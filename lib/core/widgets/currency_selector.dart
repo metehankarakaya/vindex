@@ -65,7 +65,12 @@ class _CurrencyOptionTile extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: ListTile(
         tileColor: isSelected ? colorScheme.primary.withValues(alpha: 0.1) : null,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: isSelected
+            ? BorderSide(color: colorScheme.primary.withValues(alpha: 0.2))
+            : BorderSide.none,
+        ),
         leading: Container(
           width: 40,
           height: 40,

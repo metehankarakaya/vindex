@@ -72,8 +72,16 @@ class _LanguageOption extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: ListTile(
         tileColor: isSelected ? colorScheme.primary.withValues(alpha: 0.1) : null,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        leading: Text(flag, style: const TextStyle(fontSize: 24)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: isSelected
+            ? BorderSide(color: colorScheme.primary.withValues(alpha: 0.2))
+            : BorderSide.none
+        ),
+        leading: Text(
+          flag,
+          style: const TextStyle(fontSize: 24),
+        ),
         title: Text(
           title,
           style: TextStyle(
@@ -82,8 +90,8 @@ class _LanguageOption extends StatelessWidget {
           ),
         ),
         trailing: isSelected
-            ? Icon(Icons.check_circle_rounded, color: colorScheme.primary, size: 22)
-            : null,
+        ? Icon(Icons.check_circle_rounded, color: colorScheme.primary, size: 22)
+        : null,
         onTap: () async {
           Navigator.pop(context);
           await Future.delayed(const Duration(milliseconds: 150));
