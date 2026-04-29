@@ -39,9 +39,9 @@
   "other": "Diğer",
 
   "theme": "Tema",
-  "darkMode": "Karanlık Mod",
-  "lightMode": "Aydınlık Mod",
-  "systemMode": "Sistem Varsayılanı",
+  "lightTheme": "Aydınlık Tema",
+  "darkTheme": "Karanlık Tema",
+  "systemTheme": "Sistem Varsayılanı",
   "changeLanguage": "Dili Değiştir",
 
   "dataManagementTitle": "Veri Yönetimi ve Sıfırlama",

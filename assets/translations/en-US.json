@@ -39,9 +39,9 @@
   "other": "Other",
 
   "theme": "Theme",
-  "darkMode": "Dark Mode",
-  "lightMode": "Light Mode",
-  "systemMode": "System Default",
+  "lightTheme": "Light Mode",
+  "darkTheme": "Dark Mode",
+  "systemTheme": "System Default",
   "changeLanguage": "Change Language",
 
   "dataManagementTitle": "Data Management & Reset",

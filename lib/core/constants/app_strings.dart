@@ -39,9 +39,9 @@ class AppStrings {
   static const String other = "other";
 
   static const String theme = "theme";
-  static const String darkMode = "darkMode";
-  static const String lightMode = "lightMode";
-  static const String systemMode = "systemMode";
+  static const String darkTheme = "darkTheme";
+  static const String lightTheme = "lightTheme";
+  static const String systemTheme = "systemTheme";
   static const String changeLanguage = "changeLanguage";
 
   static const String dataManagementTitle = "dataManagementTitle";

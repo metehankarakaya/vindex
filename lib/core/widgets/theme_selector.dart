@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../constants/app_strings.dart';
 import '../providers/theme_provider.dart';
 
 class ThemeSelector {
@@ -31,21 +33,21 @@ class ThemeSelector {
                     ),
                   ),
                   _ThemeOption(
-                    title: "Açık Tema",
+                    title: AppStrings.lightTheme.tr(),
                     icon: Icons.light_mode_outlined,
                     mode: ThemeMode.light,
                     current: currentMode,
                     ref: ref,
                   ),
                   _ThemeOption(
-                    title: "Koyu Tema",
+                    title: AppStrings.darkTheme.tr(),
                     icon: Icons.dark_mode_outlined,
                     mode: ThemeMode.dark,
                     current: currentMode,
                     ref: ref,
                   ),
                   _ThemeOption(
-                    title: "Sistem Varsayılanı",
+                    title: AppStrings.systemTheme.tr(),
                     icon: Icons.brightness_auto_outlined,
                     mode: ThemeMode.system,
                     current: currentMode,

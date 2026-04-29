@@ -50,9 +50,9 @@ class SettingsScreen extends ConsumerWidget {
                       leadingIcon: Icons.palette_outlined,
                       title: AppStrings.theme.tr(),
                       subtitle: switch (themeMode) {
-                        ThemeMode.light => AppStrings.lightMode.tr(),
-                        ThemeMode.dark => AppStrings.darkMode.tr(),
-                        ThemeMode.system => AppStrings.systemMode.tr(),
+                        ThemeMode.light => AppStrings.lightTheme.tr(),
+                        ThemeMode.dark => AppStrings.darkTheme.tr(),
+                        ThemeMode.system => AppStrings.systemTheme.tr(),
                       },
                       onTap: () => ThemeSelector.show(context),
                       showDivider: true,
