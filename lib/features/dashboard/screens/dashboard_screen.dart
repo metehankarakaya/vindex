@@ -71,11 +71,11 @@ class DashboardScreen extends ConsumerWidget {
               crossAxisAlignment: .start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 8.0, 0.0, 8.0),
+                  padding: const EdgeInsets.fromLTRB(16.0, 8.0, 0.0, 2.0),
                   child: TotalBalanceTitle(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 8.0, 0.0, 8.0),
+                  padding: const EdgeInsets.fromLTRB(16.0, 2.0, 0.0, 8.0),
                   child: BalanceCard(),
                 ),
                 Row(
