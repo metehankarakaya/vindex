@@ -9,5 +9,8 @@ final transactionDaoProvider = Provider<TransactionsDao>((ref) {
 });
 
 final transactionStreamProvider = StreamProvider<List<Transaction>>((ref) {
-  return ref.watch(transactionDaoProvider).getAllTransactions();
+  final page = ref.watch(transactionPageProvider);
+  return ref.watch(transactionDaoProvider).getAllTransactions(limit: page * 20);
 });
+
+final transactionPageProvider = StateProvider<int>((ref) => 1);

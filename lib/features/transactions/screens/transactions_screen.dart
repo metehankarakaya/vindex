@@ -6,11 +6,50 @@ import 'package:vindex/core/widgets/empty_holder.dart';
 import 'package:vindex/features/transactions/providers/transaction_provider.dart';
 import 'package:vindex/features/transactions/widgets/transaction_list_item.dart';
 
-class TransactionsScreen extends ConsumerWidget {
+class TransactionsScreen extends ConsumerStatefulWidget {
   const TransactionsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  TransactionsScreenState createState() => TransactionsScreenState();
+}
+
+class TransactionsScreenState extends ConsumerState<TransactionsScreen> {
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  bool _showBackToTop = false;
+
+  void _onScroll() {
+    if (_scrollController.offset > 300 && !_showBackToTop) {
+      setState(() => _showBackToTop = true);
+    } else if (_scrollController.offset <= 300 && _showBackToTop) {
+      setState(() => _showBackToTop = false);
+    }
+    final asyncTransactions = ref.read(transactionStreamProvider);
+
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
+      if (!asyncTransactions.isLoading && !asyncTransactions.isRefreshing) {
+        ref.read(transactionPageProvider.notifier).update((state) => state + 1);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
@@ -18,6 +57,7 @@ class TransactionsScreen extends ConsumerWidget {
 
     return Scaffold(
       body: CustomScrollView(
+        controller: _scrollController,
         slivers: [
           SliverAppBar(
             expandedHeight: 120.0,
@@ -30,17 +70,20 @@ class TransactionsScreen extends ConsumerWidget {
             ),
           ),
           transactionAsync.when(
-            data: (transactions) => transactions.isNotEmpty
-              ? SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              sliver: SliverList.separated(
-                separatorBuilder: (context, index) => Divider(
-                  height: 1,
-                  indent: 56,
-                  color: colorScheme.outlineVariant.withValues(alpha: 0.3),
-                ),
-                itemCount: transactions.length,
-                itemBuilder: (context, index) => Dismissible(
+            skipLoadingOnReload: true,
+            data: (transactions) =>
+            transactions.isNotEmpty
+            ? SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            sliver: SliverList.separated(
+              separatorBuilder: (context, index) => Divider(
+                height: 1,
+                indent: 56,
+                color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+              ),
+              itemCount: transactions.length,
+              itemBuilder: (context, index) =>
+                Dismissible(
                   key: Key(transactions[index].id),
                   direction: DismissDirection.endToStart,
                   onDismissed: (_) => ref.read(transactionDaoProvider).deleteTransaction(transactions[index].id),
@@ -51,12 +94,12 @@ class TransactionsScreen extends ConsumerWidget {
                       color: colorScheme.errorContainer,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Icon(Icons.delete_outline, color: colorScheme.error),
+                    child: Icon(
+                      Icons.delete_outline, color: colorScheme.error),
                   ),
-                  child: TransactionListItem(transaction: transactions[index]),
+                  child: TransactionListItem(transaction: transactions[index]),),
                 ),
-              ),
-            ) : SliverFillRemaining(
+              ) : SliverFillRemaining(
               hasScrollBody: false,
               child: EmptyHolder(
                 iconData: Icons.receipt_long_outlined,
@@ -77,6 +120,17 @@ class TransactionsScreen extends ConsumerWidget {
           )
         ],
       ),
+      floatingActionButton: _showBackToTop
+      ? FloatingActionButton(
+        onPressed: () {
+          _scrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        },
+        child: Icon(Icons.arrow_upward_outlined),
+      ) : null,
     );
   }
 }
