@@ -10,7 +10,7 @@ class RecurringTransactionsDao extends DatabaseAccessor<AppDatabase> with _$Recu
   RecurringTransactionsDao(super.db);
 
   Stream<List<RecurringTransaction>> getAllRecurringTransactions() {
-    return select(recurringTransactions).watch();
+    return (select(recurringTransactions)..orderBy([(r) => OrderingTerm.desc(r.startDate)])).watch();
   }
 
   Future<int> insertRecurringTransactions(RecurringTransactionsCompanion entry) {

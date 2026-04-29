@@ -10,7 +10,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
   TransactionsDao(super.db);
 
   Stream<List<Transaction>> getAllTransactions() {
-    return select(transactions).watch();
+    return (select(transactions)..orderBy([(t) => OrderingTerm.desc(t.createdAt)])).watch();
   }
 
   Future<int> insertTransaction(TransactionsCompanion entry) {
