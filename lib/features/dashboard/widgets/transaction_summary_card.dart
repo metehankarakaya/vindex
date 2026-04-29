@@ -5,15 +5,15 @@ import 'package:vindex/features/dashboard/provider/dashboard_provider.dart';
 
 import '../../../core/constants/app_strings.dart';
 import '../../../core/models/transactions_table.dart';
+import '../../../core/providers/currency_formatter_provider.dart';
 
 class TransactionSummaryCard extends ConsumerWidget {
   final TransactionType type;
   const TransactionSummaryCard({super.key, required this.type});
 
-  static final formatter = NumberFormat.currency(locale: 'tr_TR', symbol: '₺');
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final formatter = ref.watch(currencyFormatterProvider);
     final isHide = ref.watch(toggleProvider);
     final isIncome = type == TransactionType.income;
 
@@ -47,7 +47,7 @@ class TransactionSummaryCard extends ConsumerWidget {
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  isHide ? "₺******" : formattedAmount,
+                  isHide ? "${formatter.currencySymbol}******" : formattedAmount,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

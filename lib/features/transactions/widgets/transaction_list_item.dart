@@ -1,18 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/models/transactions_table.dart';
+import '../../../core/providers/currency_formatter_provider.dart';
 import '../../../core/utils/category_utils.dart';
 import '../../../database/app_database.dart';
 
-class TransactionListItem extends StatelessWidget {
+class TransactionListItem extends ConsumerWidget {
   final Transaction transaction;
   const TransactionListItem({super.key, required this.transaction});
 
-  static final formatter = NumberFormat.currency(locale: 'tr_TR', symbol: '₺');
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final formatter = ref.watch(currencyFormatterProvider);
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final formattedAmount = formatter.format(transaction.amountCents / 100);

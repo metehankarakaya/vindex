@@ -63,6 +63,13 @@
   "cannotBeUndone": "This action cannot be undone.",
   "cancel": "Cancel",
   "yesDelete": "Yes, Delete",
-  "actionCompleted": "Action completed successfully."
+  "actionCompleted": "Action completed successfully.",
+
+  "preferences": "Preferences",
+  "currency": "Currency",
+  "currencyChangeTitle": "Are you sure?",
+  "currencyChangeMessage": "Changing the currency to {currency} will PERMANENTLY delete all your existing data.",
+  "resetAndChange": "Reset and Change",
+  "currencyUpdated": "Currency updated to {code}."
 
 }

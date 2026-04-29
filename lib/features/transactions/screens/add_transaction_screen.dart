@@ -10,6 +10,7 @@ import 'package:vindex/core/widgets/save_transaction_button.dart';
 import 'package:vindex/core/widgets/transaction_type_selector.dart';
 import 'package:vindex/features/transactions/providers/transaction_provider.dart';
 import '../../../core/models/transactions_table.dart';
+import '../../../core/providers/currency_formatter_provider.dart';
 import '../../../database/app_database.dart';
 
 class AddTransactionScreen extends ConsumerStatefulWidget {
@@ -20,7 +21,6 @@ class AddTransactionScreen extends ConsumerStatefulWidget {
 }
 
 class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
-  static final _formatter = NumberFormat.currency(locale: 'tr_TR', symbol: '₺');
   late final TextEditingController _titleController;
   late final TextEditingController _amountController;
 
@@ -73,6 +73,14 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     super.dispose();
   }
 
+  late NumberFormat _formatter;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _formatter = ref.watch(currencyFormatterProvider);
+  }
+
   TransactionType _selectedType = TransactionType.expense;
   String? _selectedCategory;
 
@@ -103,7 +111,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 color: amountColor,
               ),
               decoration: InputDecoration(
-                hintText: "₺0,00",
+                hintText: "${_formatter.currencySymbol}0,00",
                 hintStyle: TextStyle(
                   color: amountColor.withValues(alpha: 0.2),
                 ),

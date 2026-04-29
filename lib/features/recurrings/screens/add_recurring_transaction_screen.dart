@@ -10,6 +10,7 @@ import 'package:vindex/features/recurrings/providers/recurring_transaction_provi
 import '../../../core/constants/app_strings.dart';
 import '../../../core/models/recurring_transaction_table.dart';
 import '../../../core/models/transactions_table.dart';
+import '../../../core/providers/currency_formatter_provider.dart';
 import '../../../core/utils/currency_input_formatter.dart';
 import '../../../core/widgets/category_selector.dart';
 import '../../../core/widgets/date_picker.dart';
@@ -24,7 +25,6 @@ class AddRecurringTransactionScreen extends ConsumerStatefulWidget {
 }
 
 class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTransactionScreen> {
-  static final _formatter = NumberFormat.currency(locale: 'tr_TR', symbol: '₺');
   late final TextEditingController _titleController;
   late final TextEditingController _amountController;
 
@@ -96,6 +96,15 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
     super.dispose();
   }
 
+  late NumberFormat _formatter;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _formatter = ref.watch(currencyFormatterProvider);
+  }
+
+
   TransactionType _selectedType = TransactionType.expense;
   String? _selectedCategory;
   RecurringFrequency? _selectedFrequency;
@@ -129,7 +138,7 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
                 color: amountColor,
               ),
               decoration: InputDecoration(
-                hintText: "₺0,00",
+                hintText: "${_formatter.currencySymbol}0,00",
                 hintStyle: TextStyle(
                   color: amountColor.withValues(alpha: 0.2),
                 ),

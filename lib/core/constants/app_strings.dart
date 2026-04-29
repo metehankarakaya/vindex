@@ -65,6 +65,14 @@ class AppStrings {
   static const String yesDelete = "yesDelete";
   static const String actionCompleted = "actionCompleted";
 
+  static const String preferences = "preferences";
+  static const String currency = "currency";
+  static const String confirm = "confirm";
+  static const String currencyChangeTitle = "currencyChangeTitle";
+  static const String currencyChangeMessage = "currencyChangeMessage";
+  static const String resetAndChange = "resetAndChange";
+  static const String currencyUpdated = "currencyUpdated";
+
 }
 
 const List<String> categories = [

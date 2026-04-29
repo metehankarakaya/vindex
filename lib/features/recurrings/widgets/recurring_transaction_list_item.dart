@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vindex/database/app_database.dart';
 
 import '../../../core/models/transactions_table.dart';
+import '../../../core/providers/currency_formatter_provider.dart';
 import '../../../core/utils/category_utils.dart';
 
 class RecurringTransactionListItem extends ConsumerWidget {
@@ -11,10 +12,9 @@ class RecurringTransactionListItem extends ConsumerWidget {
   final VoidCallback? onLongPress;
   const RecurringTransactionListItem({super.key, required this.recurringTransaction, this.onLongPress});
 
-  static final formatter = NumberFormat.currency(locale: 'tr_TR', symbol: '₺');
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final formatter = ref.watch(currencyFormatterProvider);
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final formattedAmount = formatter.format(recurringTransaction.amountCents / 100);

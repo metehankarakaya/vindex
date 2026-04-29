@@ -63,6 +63,13 @@
   "cannotBeUndone": "Bu işlem geri alınamaz.",
   "cancel": "Vazgeç",
   "yesDelete": "Evet, Sil",
-  "actionCompleted": "İşlem başarıyla tamamlandı."
+  "actionCompleted": "İşlem başarıyla tamamlandı.",
+
+  "preferences": "Tercihler",
+  "currency": "Para Birimi",
+  "currencyChangeTitle": "Emin misiniz?",
+  "currencyChangeMessage": "Para birimini {currency} olarak değiştirmek mevcut tüm verilerinizi KALICI olarak silecektir.",
+  "resetAndChange": "Sıfırla ve Değiştir",
+  "currencyUpdated": "Para birimi {code} olarak güncellendi."
 
 }

@@ -4,8 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/core/providers/package_info_provider.dart';
+import 'package:vindex/core/widgets/currency_selector.dart';
 import 'package:vindex/features/settings/widgets/sliver_section_header.dart';
 
+import '../../../core/providers/currency_provider.dart';
 import '../../../core/providers/theme_provider.dart';
 import '../../../core/widgets/language_selector.dart';
 import '../../../core/widgets/theme_selector.dart';
@@ -58,6 +60,28 @@ class SettingsScreen extends ConsumerWidget {
                       leadingIcon: Icons.language,
                       title: AppStrings.changeLanguage.tr(),
                       onTap: () => LanguageSelector.show(context),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SliverSectionHeader(title: AppStrings.preferences.tr()),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: Card(
+                elevation: 0,
+                clipBehavior: Clip.antiAlias,
+                color: colorScheme.surfaceContainerLow,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                child: Column(
+                  children: [
+                    SettingsListItem(
+                      leadingIcon: Icons.currency_exchange_rounded,
+                      title: AppStrings.currency.tr(),
+                        subtitle: "${ref.watch(currencyProvider).code} (${ref.watch(currencyProvider).symbol})",
+                      onTap: () => CurrencySelector.show(context)
                     ),
                   ],
                 ),
