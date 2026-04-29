@@ -36,5 +36,12 @@
   "health": "Sağlık",
   "entertainment": "Eğlence",
   "salary": "Maaş",
-  "other": "Diğer"
+  "other": "Diğer",
+
+  "theme": "Tema",
+  "darkMode": "Karanlık Mod",
+  "lightMode": "Aydınlık Mod",
+  "systemMode": "Sistem Varsayılanı",
+  "changeLanguage": "Dili Değiştir"
+
 }

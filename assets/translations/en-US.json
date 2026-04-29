@@ -36,5 +36,11 @@
   "health": "Health",
   "entertainment": "Entertainment",
   "salary": "Salary",
-  "other": "Other"
+  "other": "Other",
+
+  "theme": "Theme",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode",
+  "systemMode": "System Default",
+  "changeLanguage": "Change Language"
 }

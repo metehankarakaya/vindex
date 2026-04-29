@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/core/widgets/language_selector.dart';
 import 'package:vindex/core/widgets/theme_selector.dart';
 
@@ -14,26 +16,26 @@ class SettingsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings"),
+        title: Text(AppStrings.settings.tr()),
       ),
       body: Center(
         child: Column(
           children: [
             ListTile(
               leading: const Icon(Icons.palette_outlined),
-              title: Text("Tema"),
+              title: Text(AppStrings.theme.tr()),
               subtitle: Text(
                 switch (themeMode) {
-                  ThemeMode.light => "Açık",
-                  ThemeMode.dark => "Koyu",
-                  ThemeMode.system => "Sistem Varsayılanı",
+                  ThemeMode.light => AppStrings.lightMode.tr(),
+                  ThemeMode.dark => AppStrings.darkMode.tr(),
+                  ThemeMode.system => AppStrings.systemMode.tr(),
                 },
               ),
               onTap: () => ThemeSelector.show(context),
             ),
             ListTile(
               leading: const Icon(Icons.language),
-              title: Text("Dil Değiştir"),
+              title: Text(AppStrings.changeLanguage.tr()),
               onTap: () => LanguageSelector.show(context),
             ),
           ],

@@ -37,6 +37,14 @@ class AppStrings {
   static const String entertainment = "entertainment";
   static const String salary = "salary";
   static const String other = "other";
+
+  static const String theme = "theme";
+  static const String darkMode = "darkMode";
+  static const String lightMode = "lightMode";
+  static const String systemMode = "systemMode";
+  static const String changeLanguage = "changeLanguage";
+
+
 }
 
 const List<String> categories = [
