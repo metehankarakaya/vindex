@@ -4,6 +4,10 @@ import '../../../core/models/transactions_table.dart';
 import '../../../database/app_database.dart';
 import '../../transactions/providers/transaction_provider.dart';
 
+final toggleProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
 final totalBalanceProvider = Provider<int>((ref) {
   final transactionsAsync = ref.watch(transactionStreamProvider);
   return transactionsAsync.when(
