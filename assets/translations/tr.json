@@ -8,6 +8,10 @@
   "income": "Gelir",
   "expense": "Gider",
 
+  "totalBalance": "Toplam Bakiye",
+  "transactionIncome": "Gelir",
+  "transactionExpense": "Gider",
+
   "transactionDescription": "İşlem açıklaması",
   "saveTransaction": "İşlemi kaydet",
 

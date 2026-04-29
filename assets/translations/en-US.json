@@ -8,6 +8,10 @@
   "income": "Income",
   "expense": "Expense",
 
+  "totalBalance": "Total Balance",
+  "transactionIncome": "Income",
+  "transactionExpense": "Expense",
+
   "transactionDescription": "Transaction description",
   "saveTransaction": "Save transaction",
 

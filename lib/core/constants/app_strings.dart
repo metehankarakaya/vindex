@@ -8,6 +8,10 @@ class AppStrings {
   static const String income = "income";
   static const String expense = "expense";
 
+  static const String totalBalance = "totalBalance";
+  static const String transactionIncome = "transactionIncome";
+  static const String transactionExpense = "transactionExpense";
+
   static const String transactionDescription = "transactionDescription";
   static const String saveTransaction = "saveTransaction";
 
