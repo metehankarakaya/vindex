@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_strings.dart';
+import '../../../core/providers/backup_provider.dart';
+import '../../../core/services/backup_service.dart';
+import '../../../core/utils/vindex_snackbar.dart';
 import '../../recurrings/providers/recurring_transaction_provider.dart';
 import '../../transactions/providers/transaction_provider.dart';
+import '../widgets/show_export_options.dart';
 
 class DataManagementScreen extends ConsumerWidget {
   const DataManagementScreen({super.key});
@@ -23,13 +27,34 @@ class DataManagementScreen extends ConsumerWidget {
             leading: const Icon(Icons.upload_file),
             title: Text(AppStrings.exportData.tr()),
             subtitle: Text(AppStrings.exportSubtitle.tr()),
-            onTap: () {},
+            onTap: () => ExportOptionsSheet.show(context, ref),
           ),
           ListTile(
             leading: const Icon(Icons.download_for_offline),
             title: Text(AppStrings.importData.tr()),
             subtitle: Text(AppStrings.importSubtitle.tr()),
-            onTap: () {},
+            onTap: () => _confirmAction(
+              context,
+              AppStrings.importWarning.tr(),
+                  () async {
+                final result = await ref.read(backupServiceProvider).importBackup();
+                if (context.mounted) {
+                  final message = switch (result) {
+                    ImportResult.success => AppStrings.importSuccess.tr(),
+                    ImportResult.invalidFile => AppStrings.importInvalidFile.tr(),
+                    ImportResult.cancelled => null,
+                    ImportResult.error => AppStrings.importError.tr(),
+                  };
+                  if (message != null) {
+                    VindexSnackBar.showSnackBar(
+                      context,
+                      message,
+                      isSuccess: result == ImportResult.success
+                    );
+                  }
+                }
+              },
+            ),
           ),
           const Divider(indent: 16, endIndent: 16),
           _SectionTitle(title: AppStrings.reset.tr(), isDanger: true),
