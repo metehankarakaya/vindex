@@ -23,30 +23,53 @@ class StatsSummaryCard extends ConsumerWidget {
       elevation: 0,
       color: colorScheme.surfaceContainerLow,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-        side: BorderSide(color: colorScheme.outlineVariant.withValues(alpha: 0.5)),
+        borderRadius: BorderRadius.circular(28),
+        side: BorderSide(color: colorScheme.outlineVariant.withValues(alpha: 0.3)),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 28),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              AppStrings.netBalance.tr(),
-              style: TextStyle(color: colorScheme.outline, fontSize: 13, fontWeight: FontWeight.w600)
+              AppStrings.netBalance.tr().toUpperCase(),
+              style: TextStyle(
+                color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.2,
+              )
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             Text(
               formatter.format(totalBalance / 100),
-              style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, letterSpacing: -1),
+              style: TextStyle(
+                fontSize: 38,
+                fontWeight: FontWeight.w900,
+                letterSpacing: -1.5,
+                color: totalBalance < 0 ? colorScheme.error : colorScheme.onSurface,
+              ),
             ),
-            const SizedBox(height: 24),
-            const Divider(height: 1),
-            const SizedBox(height: 24),
+            const SizedBox(height: 28),
+            Divider(height: 1, color: colorScheme.outlineVariant.withValues(alpha: 0.4)),
+            const SizedBox(height: 28),
             Row(
               children: [
-                MiniStat(label: AppStrings.totalIncome.tr(), value: formatter.format(incomeStats / 100), color: Colors.green),
-                MiniStat(label: AppStrings.totalExpense.tr(), value: formatter.format(expenseStats / 100), color: colorScheme.error),
+                MiniStat(
+                  label: AppStrings.totalIncome.tr(),
+                  value: formatter.format(incomeStats / 100),
+                  color: Colors.greenAccent.shade700,
+                ),
+                Container(
+                  width: 1,
+                  height: 30,
+                  color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+                ),
+                MiniStat(
+                  label: AppStrings.totalExpense.tr(),
+                  value: formatter.format(expenseStats / 100),
+                  color: colorScheme.error,
+                ),
               ],
             ),
           ],
@@ -67,9 +90,24 @@ class MiniStat extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
-          const SizedBox(height: 4),
-          Text(value, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            )
+          ),
+          const SizedBox(height: 6),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w800,
+              color: color,
+              letterSpacing: -0.5,
+            )
+          ),
         ],
       ),
     );

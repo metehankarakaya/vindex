@@ -12,9 +12,14 @@ class StatsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     final selectedPeriod = ref.watch(selectedPeriodProvider);
-    final category = ref.watch(categoryBreakdownProvider);
+    final categoryMap = ref.watch(categoryBreakdownProvider);
+    final totalExpense = ref.watch(statsExpenseProvider);
+
+    final sortedEntries = categoryMap.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
 
     return Scaffold(
       body: CustomScrollView(
@@ -25,8 +30,9 @@ class StatsScreen extends ConsumerWidget {
             stretch: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(AppStrings.stats.tr(), style: theme.textTheme.titleMedium),
-              titlePadding: const EdgeInsetsDirectional.only(start: 16, bottom: 16),
+              titlePadding: const EdgeInsetsDirectional.only(start: 56, bottom: 16),
               centerTitle: false,
+              background: Container(color: theme.scaffoldBackgroundColor),
             ),
           ),
           SliverToBoxAdapter(
@@ -35,9 +41,9 @@ class StatsScreen extends ConsumerWidget {
               child: SegmentedButton<StatsPeriod>(
                 selected: {selectedPeriod},
                 segments: [
-                  ButtonSegment(value: StatsPeriod.week, label: Text(AppStrings.weekly)),
-                  ButtonSegment(value: StatsPeriod.month, label: Text(AppStrings.monthly)),
-                  ButtonSegment(value: StatsPeriod.year, label: Text(AppStrings.yearly)),
+                  ButtonSegment(value: StatsPeriod.week, label: Text(AppStrings.weekly.tr())),
+                  ButtonSegment(value: StatsPeriod.month, label: Text(AppStrings.monthly.tr())),
+                  ButtonSegment(value: StatsPeriod.year, label: Text(AppStrings.yearly.tr())),
                 ],
                 onSelectionChanged: (newSelection) {
                   ref.read(selectedPeriodProvider.notifier).state = newSelection.first;
@@ -51,9 +57,9 @@ class StatsScreen extends ConsumerWidget {
             ),
           ),
           SliverToBoxAdapter(
-            child: Padding(
+            child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: StatsSummaryCard()
+              child: StatsSummaryCard(),
             ),
           ),
           SliverPadding(
@@ -63,9 +69,9 @@ class StatsScreen extends ConsumerWidget {
                 AppStrings.categoryDistribution.tr().toUpperCase(),
                 style: TextStyle(
                   fontSize: 11,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w900,
                   letterSpacing: 1.5,
-                  color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.7),
+                  color: colorScheme.primary.withValues(alpha: 0.8),
                 ),
               ),
             ),
@@ -73,16 +79,20 @@ class StatsScreen extends ConsumerWidget {
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                category.entries.map((entry) => CategoryStats(
-                  category: entry.key,
-                  amountCents: entry.value,
-                  totalExpenseCents: ref.watch(statsExpenseProvider),
-                )).toList(),
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final entry = sortedEntries[index];
+                  return CategoryStats(
+                    category: entry.key,
+                    amountCents: entry.value,
+                    totalExpenseCents: totalExpense,
+                  );
+                },
+                childCount: sortedEntries.length,
               ),
             ),
           ),
-          const SliverToBoxAdapter(child: SizedBox(height: 32)),
+          const SliverToBoxAdapter(child: SizedBox(height: 40)),
         ],
       ),
     );

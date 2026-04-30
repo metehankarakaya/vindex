@@ -14,37 +14,60 @@ class CategoryStats extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-
     final formatter = ref.watch(currencyFormatterProvider);
+
     final percentage = totalExpenseCents > 0 ? amountCents / totalExpenseCents : 0.0;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
+      padding: const EdgeInsets.only(bottom: 20.0),
       child: Column(
+        crossAxisAlignment: .start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 category.tr(),
-                style: const TextStyle(fontWeight: FontWeight.w500),
+                style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
               ),
               Text(
                 formatter.format(amountCents / 100),
-                style: TextStyle(color: colorScheme.primary, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: colorScheme.primary,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 14,
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: LinearProgressIndicator(
-              value: percentage,
-              minHeight: 16,
-              backgroundColor: colorScheme.surfaceContainerHighest,
-              valueColor: AlwaysStoppedAnimation<Color>(colorScheme.primary),
+          const SizedBox(height: 10),
+          Container(
+            height: 10,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(20),
             ),
-          )
+            child: FractionallySizedBox(
+              alignment: Alignment.centerLeft,
+              widthFactor: percentage,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [colorScheme.primary, colorScheme.primaryContainer],
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: colorScheme.primary.withValues(alpha: 0.2),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
