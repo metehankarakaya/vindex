@@ -9,6 +9,12 @@ part 'transactions_dao.g.dart';
 class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsDaoMixin {
   TransactionsDao(super.db);
 
+  Stream<List<Transaction>> getTransactionsByDateRange(DateTime start) {
+    return (select(transactions)
+      ..where((t) => t.createdAt.isBiggerOrEqualValue(start))
+      ..orderBy([(t) => OrderingTerm.desc(t.createdAt)])
+    ).watch();
+  }
 
   Stream<int> watchTransactionCount() {
     return (selectOnly(transactions)..addColumns([countAll()]))
