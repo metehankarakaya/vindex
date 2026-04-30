@@ -63,7 +63,8 @@ class StatsScreen extends ConsumerWidget {
               child: StatsSummaryCard(),
             ),
           ),
-          SliverPadding(
+          categoryMap.isNotEmpty
+          ? SliverPadding(
             padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
             sliver: SliverToBoxAdapter(
               child: Text(
@@ -76,7 +77,7 @@ class StatsScreen extends ConsumerWidget {
                 ),
               ),
             ),
-          ),
+          ) : SliverToBoxAdapter(child: const SizedBox(),),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverList(
