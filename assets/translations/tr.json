@@ -4,30 +4,23 @@
   "instant": "Anlık",
   "recurring": "Tekrarlayan",
   "settings": "Ayarlar",
-
   "income": "Gelir",
   "expense": "Gider",
-
   "totalBalance": "Toplam Bakiye",
   "transactionIncome": "Gelir",
   "transactionExpense": "Gider",
   "recentTransactions": "Son İşlemler",
-
   "transactionDescription": "İşlem açıklaması",
   "saveTransaction": "İşlemi kaydet",
-
   "noTransactionsYet": "Henüz işlem yok",
-
   "daily": "Günlük",
   "weekly": "Haftalık",
   "monthly": "Aylık",
   "yearly": "Yıllık",
-
   "startDate": "Başlangıç Tarihi",
   "pickStartDate": "Başlangıç Tarihi Seçin",
   "endDateOptional": "Bitiş Tarihi (İsteğe bağlı)",
   "pickEndDate": "Bitiş Tarihi Seçin",
-
   "market": "Market",
   "restaurant": "Restoran",
   "transport": "Ulaşım",
@@ -37,13 +30,11 @@
   "entertainment": "Eğlence",
   "salary": "Maaş",
   "other": "Diğer",
-
   "theme": "Tema",
   "lightTheme": "Aydınlık Tema",
   "darkTheme": "Karanlık Tema",
   "systemTheme": "Sistem Varsayılanı",
   "changeLanguage": "Dili Değiştir",
-
   "dataManagementTitle": "Veri Yönetimi ve Sıfırlama",
   "dataManagementSubtitle": "Yedekleme, içe aktarma ve temizleme işlemleri",
   "dataManagement": "Veri Yönetimi",
@@ -64,24 +55,29 @@
   "cancel": "Vazgeç",
   "yesDelete": "Evet, Sil",
   "actionCompleted": "İşlem başarıyla tamamlandı.",
-
   "preferences": "Tercihler",
   "currency": "Para Birimi",
   "currencyChangeTitle": "Emin misiniz?",
   "currencyChangeMessage": "Para birimini {currency} olarak değiştirmek mevcut tüm verilerinizi KALICI olarak silecektir.",
   "resetAndChange": "Sıfırla ve Değiştir",
   "currencyUpdated": "Para birimi {code} olarak güncellendi.",
-
   "stats": "İstatistikler",
   "analytics": "Analiz",
   "spendingHabits": "Harcama alışkanlıklarını incele",
-
   "netBalance": "Net Durum",
   "totalIncome": "Toplam Gelir",
   "totalExpense": "Toplam Gider",
   "categoryDistribution": "Kategori Dağılımı",
-
   "totalInstantTransactions": "Anlık İşlem",
-  "totalRecurringTransactions": "Tekrarlayan İşlem"
-
+  "totalRecurringTransactions": "Tekrarlayan İşlem",
+  "importWarning": "İçe aktarma mevcut verilerinizi etkileyebilir.",
+  "importSuccess": "Veriler başarıyla içe aktarıldı.",
+  "importInvalidFile": "Geçersiz dosya formatı.",
+  "importError": "İçe aktarma sırasında bir hata oluştu.",
+  "exportSuccessCsv": "İndirilenler klasörüne kaydedildi: {}",
+  "exportSuccessVbk": "Vindex yedeği oluşturuldu: {}",
+  "exportUnencrypted": "Şifresiz Export (.csv)",
+  "exportUnencryptedSubtitle": "Excel veya Tablolar'da açılabilir",
+  "exportEncrypted": "Şifreli Export (.vbk)",
+  "exportEncryptedSubtitle": "Sadece Vindex üzerinden geri yüklenebilir"
 }

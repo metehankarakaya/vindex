@@ -84,6 +84,17 @@ class AppStrings {
   static const String totalInstantTransactions = "totalInstantTransactions";
   static const String totalRecurringTransactions = "totalRecurringTransactions";
 
+  static const String importWarning = "importWarning";
+  static const String importSuccess = "importSuccess";
+  static const String importInvalidFile = "importInvalidFile";
+  static const String importError = "importError";
+
+  static const String exportSuccessCsv = "exportSuccessCsv";
+  static const String exportSuccessVbk = "exportSuccessVbk";
+  static const String exportUnencrypted = "exportUnencrypted";
+  static const String exportUnencryptedSubtitle = "exportUnencryptedSubtitle";
+  static const String exportEncrypted = "exportEncrypted";
+  static const String exportEncryptedSubtitle = "exportEncryptedSubtitle";
 }
 
 const List<String> categories = [

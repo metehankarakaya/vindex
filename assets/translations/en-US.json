@@ -4,30 +4,23 @@
   "instant": "Instant",
   "recurring": "Recurring",
   "settings": "Settings",
-
   "income": "Income",
   "expense": "Expense",
-
   "totalBalance": "Total Balance",
   "transactionIncome": "Income",
   "transactionExpense": "Expense",
   "recentTransactions": "Recent Transactions",
-
   "transactionDescription": "Transaction description",
   "saveTransaction": "Save transaction",
-
   "noTransactionsYet": "No transactions yet",
-
   "daily": "Daily",
   "weekly": "Weekly",
   "monthly": "Monthly",
   "yearly": "Yearly",
-
   "startDate": "Start Date",
   "pickStartDate": "Select Start Date",
   "endDateOptional": "End Date (Optional)",
   "pickEndDate": "Select End Date",
-
   "market": "Market",
   "restaurant": "Restaurant",
   "transport": "Transport",
@@ -37,13 +30,11 @@
   "entertainment": "Entertainment",
   "salary": "Salary",
   "other": "Other",
-
   "theme": "Theme",
   "lightTheme": "Light Mode",
   "darkTheme": "Dark Mode",
   "systemTheme": "System Default",
   "changeLanguage": "Change Language",
-
   "dataManagementTitle": "Data Management & Reset",
   "dataManagementSubtitle": "Backup, import, and cleanup operations",
   "dataManagement": "Data Management",
@@ -64,24 +55,29 @@
   "cancel": "Cancel",
   "yesDelete": "Yes, Delete",
   "actionCompleted": "Action completed successfully.",
-
   "preferences": "Preferences",
   "currency": "Currency",
   "currencyChangeTitle": "Are you sure?",
   "currencyChangeMessage": "Changing the currency to {currency} will PERMANENTLY delete all your existing data.",
   "resetAndChange": "Reset and Change",
   "currencyUpdated": "Currency updated to {code}.",
-
   "stats": "Statistics",
   "analytics": "Analytics",
   "spendingHabits": "Check your spending habits",
-
   "netBalance": "Net Balance",
   "totalIncome": "Total Income",
   "totalExpense": "Total Expense",
   "categoryDistribution": "Category Distribution",
-
   "totalInstantTransactions": "Instant Transactions",
-  "totalRecurringTransactions": "Recurring Transactions"
-
+  "totalRecurringTransactions": "Recurring Transactions",
+  "importWarning": "Importing may affect your existing data.",
+  "importSuccess": "Data imported successfully.",
+  "importInvalidFile": "Invalid or corrupted backup file.",
+  "importError": "An error occurred during import.",
+  "exportSuccessCsv": "Saved to Downloads: {}",
+  "exportSuccessVbk": "Vindex backup created: {}",
+  "exportUnencrypted": "Unencrypted Export (.csv)",
+  "exportUnencryptedSubtitle": "Can be opened in Excel or Sheets",
+  "exportEncrypted": "Encrypted Export (.vbk)",
+  "exportEncryptedSubtitle": "Only restorable via Vindex app"
 }
