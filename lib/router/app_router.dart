@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/features/dashboard/screens/dashboard_screen.dart';
+import 'package:vindex/features/stats/screens/stats_screen.dart';
 
 import '../features/recurrings/screens/recurring_screen.dart';
 import '../features/settings/screens/data_management_screen.dart';
@@ -47,6 +48,10 @@ final appRouter = GoRouter(
               path: "/settings",
               builder: (context, state) => const SettingsScreen(),
               routes: [
+                GoRoute(
+                  path: "stats",
+                  builder: (context, state) => const StatsScreen(),
+                ),
                 GoRoute(
                   path: "data-management",
                   builder: (context, state) => const DataManagementScreen(),

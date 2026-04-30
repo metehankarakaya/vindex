@@ -66,7 +66,30 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
           ),
-          SliverSectionHeader(title: AppStrings.preferences.tr()),
+          SliverSectionHeader(title: AppStrings.stats.tr().toUpperCase()),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: Card(
+                elevation: 0,
+                clipBehavior: Clip.antiAlias,
+                color: colorScheme.surfaceContainerLow,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                child: Column(
+                  children: [
+                    SettingsListItem(
+                      leadingIcon: Icons.analytics_outlined,
+                      title: AppStrings.analytics.tr(),
+                      subtitle: AppStrings.spendingHabits.tr(),
+                      trailing: const Icon(Icons.chevron_right, size: 20),
+                      onTap: () => context.push("/settings/stats"),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SliverSectionHeader(title: AppStrings.preferences.tr().toUpperCase()),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
@@ -80,7 +103,7 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsListItem(
                       leadingIcon: Icons.currency_exchange_rounded,
                       title: AppStrings.currency.tr(),
-                        subtitle: "${ref.watch(currencyProvider).code} (${ref.watch(currencyProvider).symbol})",
+                      subtitle: "${ref.watch(currencyProvider).code} (${ref.watch(currencyProvider).symbol})",
                       onTap: () => CurrencySelector.show(context)
                     ),
                   ],
