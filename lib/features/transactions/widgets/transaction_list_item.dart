@@ -63,7 +63,7 @@ class TransactionListItem extends ConsumerWidget {
         ),
       ),
       title: Text(
-        transaction.title.trim().isEmpty ? transaction.category : transaction.title,
+        transaction.title.trim().isEmpty ? transaction.category.tr() : transaction.title,
         style: TextStyle(
           fontWeight: FontWeight.w600,
           color: colorScheme.onSurface,
