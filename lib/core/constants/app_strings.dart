@@ -73,6 +73,15 @@ class AppStrings {
   static const String resetAndChange = "resetAndChange";
   static const String currencyUpdated = "currencyUpdated";
 
+  static const String stats = "stats";
+  static const String analytics = "analytics";
+  static const String spendingHabits = "spendingHabits";
+
+  static const String netBalance = "netBalance";
+  static const String totalIncome = "totalIncome";
+  static const String totalExpense = "totalExpense";
+  static const String categoryDistribution = "categoryDistribution";
+
 }
 
 const List<String> categories = [

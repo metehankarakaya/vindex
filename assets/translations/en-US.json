@@ -70,6 +70,15 @@
   "currencyChangeTitle": "Are you sure?",
   "currencyChangeMessage": "Changing the currency to {currency} will PERMANENTLY delete all your existing data.",
   "resetAndChange": "Reset and Change",
-  "currencyUpdated": "Currency updated to {code}."
+  "currencyUpdated": "Currency updated to {code}.",
+
+  "stats": "Statistics",
+  "analytics": "Analytics",
+  "spendingHabits": "Check your spending habits",
+
+  "netBalance": "Net Balance",
+  "totalIncome": "Total Income",
+  "totalExpense": "Total Expense",
+  "categoryDistribution": "Category Distribution"
 
 }

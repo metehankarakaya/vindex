@@ -70,6 +70,15 @@
   "currencyChangeTitle": "Emin misiniz?",
   "currencyChangeMessage": "Para birimini {currency} olarak değiştirmek mevcut tüm verilerinizi KALICI olarak silecektir.",
   "resetAndChange": "Sıfırla ve Değiştir",
-  "currencyUpdated": "Para birimi {code} olarak güncellendi."
+  "currencyUpdated": "Para birimi {code} olarak güncellendi.",
+
+  "stats": "İstatistikler",
+  "analytics": "Analiz",
+  "spendingHabits": "Harcama alışkanlıklarını incele",
+
+  "netBalance": "Net Durum",
+  "totalIncome": "Toplam Gelir",
+  "totalExpense": "Toplam Gider",
+  "categoryDistribution": "Kategori Dağılımı"
 
 }
