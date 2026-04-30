@@ -79,6 +79,9 @@
   "netBalance": "Net Durum",
   "totalIncome": "Toplam Gelir",
   "totalExpense": "Toplam Gider",
-  "categoryDistribution": "Kategori Dağılımı"
+  "categoryDistribution": "Kategori Dağılımı",
+
+  "totalInstantTransactions": "Anlık İşlem",
+  "totalRecurringTransactions": "Tekrarlayan İşlem"
 
 }

@@ -79,6 +79,9 @@
   "netBalance": "Net Balance",
   "totalIncome": "Total Income",
   "totalExpense": "Total Expense",
-  "categoryDistribution": "Category Distribution"
+  "categoryDistribution": "Category Distribution",
+
+  "totalInstantTransactions": "Instant Transactions",
+  "totalRecurringTransactions": "Recurring Transactions"
 
 }

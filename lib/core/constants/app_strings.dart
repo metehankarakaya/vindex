@@ -81,6 +81,8 @@ class AppStrings {
   static const String totalIncome = "totalIncome";
   static const String totalExpense = "totalExpense";
   static const String categoryDistribution = "categoryDistribution";
+  static const String totalInstantTransactions = "totalInstantTransactions";
+  static const String totalRecurringTransactions = "totalRecurringTransactions";
 
 }
 

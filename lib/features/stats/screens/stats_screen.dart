@@ -5,6 +5,7 @@ import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/features/stats/providers/stats_provider.dart';
 import 'package:vindex/features/stats/widgets/category_stats.dart';
 import 'package:vindex/features/stats/widgets/stats_summary_card.dart';
+import 'package:vindex/features/stats/widgets/transactions_summary_card.dart';
 
 class StatsScreen extends ConsumerWidget {
   const StatsScreen({super.key});
@@ -92,7 +93,12 @@ class StatsScreen extends ConsumerWidget {
               ),
             ),
           ),
-          const SliverToBoxAdapter(child: SizedBox(height: 40)),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 40),
+            sliver: SliverToBoxAdapter(
+              child: TransactionsSummaryCard(),
+            ),
+          ),
         ],
       ),
     );
