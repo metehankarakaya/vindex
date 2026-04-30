@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/models/transactions_table.dart';
 import '../../../database/app_database.dart';
+import '../../recurrings/providers/recurring_transaction_provider.dart';
 import '../../transactions/providers/transaction_provider.dart';
 
 enum StatsPeriod { week, month, year }
@@ -48,4 +49,12 @@ final categoryBreakdownProvider = Provider<Map<String, int>>((ref) {
     breakdown[t.category] = (breakdown[t.category] ?? 0) + t.amountCents;
   }
   return breakdown;
+});
+
+final instantTransactionCountProvider = StreamProvider<int>((ref) {
+  return ref.watch(transactionDaoProvider).watchTransactionCount();
+});
+
+final recurringTransactionCountProvider = Provider<int>((ref) {
+  return ref.watch(recurringTransactionStreamProvider).valueOrNull?.length ?? 0;
 });
