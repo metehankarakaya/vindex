@@ -39,11 +39,14 @@ class RecurringTransactionsDao extends DatabaseAccessor<AppDatabase> with _$Recu
 
     for (final recurring in actives) {
       int periodsElapsed = 0;
+
+      if (now.isBefore(recurring.startDate)) continue;
+
+      if (recurring.endDate != null && now.isAfter(recurring.endDate!)) continue;
+
       final lastProcess = recurring.lastProcessDate ?? recurring.startDate;
       final daysDiff = now.difference(lastProcess).inDays;
-      if (recurring.endDate != null && now.isAfter(recurring.endDate!)) {
-        continue;
-      }
+
       switch (recurring.frequency) {
         case RecurringFrequency.daily:
           periodsElapsed = daysDiff;
