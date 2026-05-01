@@ -41,13 +41,16 @@ class StatsSummaryCard extends ConsumerWidget {
               )
             ),
             const SizedBox(height: 10),
-            Text(
-              formatter.format(totalBalance / 100),
-              style: TextStyle(
-                fontSize: 38,
-                fontWeight: FontWeight.w900,
-                letterSpacing: -1.5,
-                color: totalBalance < 0 ? colorScheme.error : colorScheme.onSurface,
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                formatter.format(totalBalance / 100),
+                style: TextStyle(
+                  fontSize: 38,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: -1.5,
+                  color: totalBalance < 0 ? colorScheme.error : colorScheme.onSurface,
+                ),
               ),
             ),
             const SizedBox(height: 28),
@@ -99,14 +102,17 @@ class MiniStat extends StatelessWidget {
             )
           ),
           const SizedBox(height: 6),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w800,
-              color: color,
-              letterSpacing: -0.5,
-            )
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w800,
+                color: color,
+                letterSpacing: -0.5,
+              )
+            ),
           ),
         ],
       ),

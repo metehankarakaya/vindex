@@ -86,13 +86,20 @@ class RecurringTransactionListItem extends ConsumerWidget {
             color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
           ),
         ),
-        trailing: Text(
-          "${isExpense ? "-" : "+"}$formattedAmount",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: amountColor,
-            decoration: recurringTransaction.isActive ? null : TextDecoration.lineThrough,
+        trailing: SizedBox(
+          width: 100,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerRight,
+            child: Text(
+              "${isExpense ? "-" : "+"}$formattedAmount",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: amountColor,
+                decoration: recurringTransaction.isActive ? null : TextDecoration.lineThrough,
+              ),
+            ),
           ),
         ),
       ),

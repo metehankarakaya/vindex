@@ -54,12 +54,19 @@ class TransactionListItem extends ConsumerWidget {
           size: 24,
         ),
       ),
-      trailing: Text(
-        "${isExpense ? "-" : "+"}$formattedAmount",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: amountColor,
+      trailing: SizedBox(
+        width: 100,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerRight,
+          child: Text(
+            "${isExpense ? "-" : "+"}$formattedAmount",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: amountColor,
+            ),
+          ),
         ),
       ),
       title: Text(
