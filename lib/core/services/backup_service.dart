@@ -3,7 +3,8 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../database/app_database.dart';
 import '../../database/daos/recurring_transactions_dao.dart';
@@ -75,10 +76,7 @@ class BackupService {
     return buffer.toString();
   }
 
-  Future<String> exportBackup({required bool encrypted}) async {
-    final status = await Permission.manageExternalStorage.request();
-    if (!status.isGranted) throw Exception('Permission denied');
-
+  Future<void> exportBackup({required bool encrypted}) async {
     final content = await _buildCsvContent();
     final finalContent = encrypted ? _encrypt(content) : content;
     final extension = encrypted ? 'vbk' : 'csv';
@@ -86,11 +84,14 @@ class BackupService {
     final now = DateTime.now();
     final fileName = 'vindex_backup_${now.year}_${now.month.toString().padLeft(2, '0')}_${now.day.toString().padLeft(2, '0')}.$extension';
 
-    final dir = Directory('/storage/emulated/0/Download');
-    final file = File('${dir.path}/$fileName');
+    final tempDir = await getTemporaryDirectory();
+    final file = File('${tempDir.path}/$fileName');
     await file.writeAsString(finalContent);
 
-    return fileName;
+    await Share.shareXFiles(
+      [XFile(file.path)],
+      subject: 'Vindex Backup',
+    );
   }
 
   Future<ImportResult> importBackup() async {

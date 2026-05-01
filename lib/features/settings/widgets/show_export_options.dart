@@ -1,10 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/constants/app_strings.dart';
 import '../../../core/providers/backup_provider.dart';
-import '../../../core/utils/vindex_snackbar.dart';
 
 class ExportOptionsSheet {
   static void show(BuildContext context, WidgetRef ref) {
@@ -40,14 +37,7 @@ class ExportOptionsSheet {
                 subtitle: const Text("Excel veya Google Tablolar'da açılabilir"),
                 onTap: () async {
                   Navigator.pop(context);
-                  final fileName = await ref.read(backupServiceProvider).exportBackup(encrypted: false);
-                  if (context.mounted) {
-                    VindexSnackBar.showSnackBar(
-                      context,
-                      AppStrings.exportSuccessCsv.tr(args: [fileName]),
-                      isSuccess: true
-                    );
-                  }
+                  await ref.read(backupServiceProvider).exportBackup(encrypted: false);
                 },
               ),
               const SizedBox(height: 8),
@@ -59,14 +49,7 @@ class ExportOptionsSheet {
                 subtitle: const Text("Sadece Vindex üzerinden geri yüklenebilir"),
                 onTap: () async {
                   Navigator.pop(context);
-                  final fileName = await ref.read(backupServiceProvider).exportBackup(encrypted: true);
-                  if (context.mounted) {
-                    VindexSnackBar.showSnackBar(
-                      context,
-                      AppStrings.exportSuccessVbk.tr(args: [fileName]),
-                      isSuccess: true
-                    );
-                  }
+                  await ref.read(backupServiceProvider).exportBackup(encrypted: true);
                 },
               ),
             ],
