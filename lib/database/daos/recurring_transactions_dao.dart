@@ -61,8 +61,16 @@ class RecurringTransactionsDao extends DatabaseAccessor<AppDatabase> with _$Recu
           periodsElapsed = now.year - lastProcess.year;
           break;
       }
+
       if (periodsElapsed > 0) {
         for (int i = 0; i < periodsElapsed; i++) {
+          final transactionDate = switch (recurring.frequency) {
+            RecurringFrequency.daily => lastProcess.add(Duration(days: i + 1)),
+            RecurringFrequency.weekly => lastProcess.add(Duration(days: (i + 1) * 7)),
+            RecurringFrequency.monthly => DateTime(lastProcess.year, lastProcess.month + i + 1, lastProcess.day),
+            RecurringFrequency.yearly => DateTime(lastProcess.year + i + 1, lastProcess.month, lastProcess.day),
+          };
+
           await into(transactions).insert(
             TransactionsCompanion(
               id: Value(const Uuid().v4()),
@@ -70,10 +78,11 @@ class RecurringTransactionsDao extends DatabaseAccessor<AppDatabase> with _$Recu
               amountCents: Value(recurring.amountCents),
               category: Value(recurring.category),
               type: Value(recurring.type),
-              createdAt: Value(now),
+              createdAt: Value(transactionDate),
             )
           );
         }
+
         await (update(recurringTransactions)
         ..where((r) => r.id.equals(recurring.id)))
         .write(RecurringTransactionsCompanion(
