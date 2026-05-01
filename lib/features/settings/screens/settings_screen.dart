@@ -41,6 +41,7 @@ class SettingsScreen extends ConsumerWidget {
             sliver: SliverToBoxAdapter(
               child: Card(
                 elevation: 0,
+                clipBehavior: Clip.antiAlias,
                 color: colorScheme.surfaceContainerLow,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 child: Column(
@@ -118,6 +119,7 @@ class SettingsScreen extends ConsumerWidget {
             sliver: SliverToBoxAdapter(
               child: Card(
                 elevation: 0,
+                clipBehavior: Clip.antiAlias,
                 color: colorScheme.surfaceContainerLow,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 child: SettingsListItem(
@@ -130,7 +132,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
           ),
-          const SliverToBoxAdapter(child: SizedBox(height: 40)),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
