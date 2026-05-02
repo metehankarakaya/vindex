@@ -83,7 +83,7 @@
 
   "securityTitle": "Güvenlik",
   "appLockTitle": "Uygulama Kilidi",
-  "appLockSubtitle": "PIN ile koru",
+  "appLockSubtitle": "PIN ile koruyun",
 
   "pinAdd": "PIN Ekle",
   "pinChange": "PIN Değiştir",
@@ -92,20 +92,20 @@
 
   "pinSetupAppBarTitle": "Güvenlik",
   "pinSetupTitle": "PIN Oluştur",
-  "pinSetupSubtitle": "Güvenliğin için PIN oluştur",
+  "pinSetupSubtitle": "Güvenliğiniz için PIN oluşturun",
   "pinConfirmTitle": "PIN Onayla",
-  "pinConfirmSubtitle": "PIN'ini tekrar gir",
+  "pinConfirmSubtitle": "PIN'inizi tekrar girin",
 
-  "pinVerifyTitle": "PIN Gir",
-  "pinVerifySubtitle": "Devam etmek için PIN'ini gir",
+  "pinVerifyTitle": "PIN Girin",
+  "pinVerifySubtitle": "Devam etmek için PIN'inizi girin",
 
   "pinDisableTitle": "PIN Kaldır",
-  "pinDisableSubtitle": "Mevcut PIN'ini gir",
+  "pinDisableSubtitle": "Mevcut PIN'inizi girin",
 
   "pinChangeTitle": "PIN Değiştir",
-  "pinChangeCurrentSubtitle": "Mevcut PIN'ini gir",
+  "pinChangeCurrentSubtitle": "Mevcut PIN'inizi girin",
   "pinChangeNewTitle": "Yeni PIN",
-  "pinChangeNewSubtitle": "Yeni PIN'ini gir",
+  "pinChangeNewSubtitle": "Yeni PIN'inizi girin",
   "pinChangeConfirmTitle": "Yeni PIN Onayla",
-  "pinChangeConfirmSubtitle": "Yeni PIN'ini tekrar gir"
+  "pinChangeConfirmSubtitle": "Yeni PIN'inizi tekrar girin"
 }
