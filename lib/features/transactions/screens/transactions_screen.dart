@@ -63,6 +63,8 @@ class TransactionsScreenState extends ConsumerState<TransactionsScreen> {
             expandedHeight: 100.0,
             pinned: true,
             stretch: true,
+            backgroundColor: theme.scaffoldBackgroundColor,
+            surfaceTintColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(AppStrings.transactions.tr(), style: theme.textTheme.titleMedium),
               titlePadding: const EdgeInsetsDirectional.only(start: 16, bottom: 16),

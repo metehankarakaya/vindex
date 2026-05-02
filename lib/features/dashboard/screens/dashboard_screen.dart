@@ -29,6 +29,8 @@ class DashboardScreen extends ConsumerWidget {
             expandedHeight: 120.0,
             pinned: true,
             stretch: true,
+            backgroundColor: theme.scaffoldBackgroundColor,
+            surfaceTintColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: false,
               stretchModes: const [StretchMode.zoomBackground],

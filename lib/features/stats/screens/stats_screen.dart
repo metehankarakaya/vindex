@@ -29,6 +29,8 @@ class StatsScreen extends ConsumerWidget {
             expandedHeight: 100.0,
             pinned: true,
             stretch: true,
+            backgroundColor: theme.scaffoldBackgroundColor,
+            surfaceTintColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(AppStrings.stats.tr(), style: theme.textTheme.titleMedium),
               titlePadding: const EdgeInsetsDirectional.only(start: 56, bottom: 16),

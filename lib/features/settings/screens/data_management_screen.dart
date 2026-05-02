@@ -21,6 +21,7 @@ class DataManagementScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(AppStrings.dataManagement.tr())),
       body: ListView(
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           _SectionTitle(title: AppStrings.backup.tr()),
           ListTile(
