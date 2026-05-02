@@ -95,6 +95,34 @@ class AppStrings {
   static const String exportUnencryptedSubtitle = "exportUnencryptedSubtitle";
   static const String exportEncrypted = "exportEncrypted";
   static const String exportEncryptedSubtitle = "exportEncryptedSubtitle";
+
+  static const String securityTitle = "securityTitle";
+  static const String appLockTitle = "appLockTitle";
+  static const String appLockSubtitle = "appLockSubtitle";
+
+  static const String pinAdd = "pinAdd";
+  static const String pinChange = "pinChange";
+  static const String pinRemove = "pinRemove";
+  static const String pinForgotWarning = "pinForgotWarning";
+
+  static const String pinSetupAppBarTitle = "pinSetupAppBarTitle";
+  static const String pinSetupTitle = "pinSetupTitle";
+  static const String pinSetupSubtitle = "pinSetupSubtitle";
+  static const String pinConfirmTitle = "pinConfirmTitle";
+  static const String pinConfirmSubtitle = "pinConfirmSubtitle";
+
+  static const String pinVerifyTitle = "pinVerifyTitle";
+  static const String pinVerifySubtitle = "pinVerifySubtitle";
+
+  static const String pinDisableTitle = "pinDisableTitle";
+  static const String pinDisableSubtitle = "pinDisableSubtitle";
+
+  static const String pinChangeTitle = "pinChangeTitle";
+  static const String pinChangeCurrentSubtitle = "pinChangeCurrentSubtitle";
+  static const String pinChangeNewTitle = "pinChangeNewTitle";
+  static const String pinChangeNewSubtitle = "pinChangeNewSubtitle";
+  static const String pinChangeConfirmTitle = "pinChangeConfirmTitle";
+  static const String pinChangeConfirmSubtitle = "pinChangeConfirmSubtitle";
 }
 
 const List<String> categories = [

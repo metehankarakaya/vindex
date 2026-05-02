@@ -79,5 +79,33 @@
   "exportUnencrypted": "Unencrypted Export (.csv)",
   "exportUnencryptedSubtitle": "Can be opened in Excel or Sheets",
   "exportEncrypted": "Encrypted Export (.vbk)",
-  "exportEncryptedSubtitle": "Only restorable via Vindex app"
+  "exportEncryptedSubtitle": "Only restorable via Vindex app",
+
+  "securityTitle": "Security",
+  "appLockTitle": "App Lock",
+  "appLockSubtitle": "Protect with PIN",
+
+  "pinAdd": "Add PIN",
+  "pinChange": "Change PIN",
+  "pinRemove": "Remove PIN",
+  "pinForgotWarning": "If you forget your PIN, you will need to delete and reinstall the app for security reasons. This may result in loss of your local data.",
+
+  "pinSetupAppBarTitle": "Security",
+  "pinSetupTitle": "Create PIN",
+  "pinSetupSubtitle": "Set up a PIN to secure your app",
+  "pinConfirmTitle": "Confirm PIN",
+  "pinConfirmSubtitle": "Enter your PIN again",
+
+  "pinVerifyTitle": "Enter PIN",
+  "pinVerifySubtitle": "Enter your PIN to continue",
+
+  "pinDisableTitle": "Remove PIN",
+  "pinDisableSubtitle": "Enter your current PIN",
+
+  "pinChangeTitle": "Change PIN",
+  "pinChangeCurrentSubtitle": "Enter your current PIN",
+  "pinChangeNewTitle": "New PIN",
+  "pinChangeNewSubtitle": "Enter your new PIN",
+  "pinChangeConfirmTitle": "Confirm New PIN",
+  "pinChangeConfirmSubtitle": "Enter your new PIN again"
 }

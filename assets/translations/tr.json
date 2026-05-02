@@ -79,5 +79,33 @@
   "exportUnencrypted": "Şifresiz Export (.csv)",
   "exportUnencryptedSubtitle": "Excel veya Tablolar'da açılabilir",
   "exportEncrypted": "Şifreli Export (.vbk)",
-  "exportEncryptedSubtitle": "Sadece Vindex üzerinden geri yüklenebilir"
+  "exportEncryptedSubtitle": "Sadece Vindex üzerinden geri yüklenebilir",
+
+  "securityTitle": "Güvenlik",
+  "appLockTitle": "Uygulama Kilidi",
+  "appLockSubtitle": "PIN ile koru",
+
+  "pinAdd": "PIN Ekle",
+  "pinChange": "PIN Değiştir",
+  "pinRemove": "PIN Kaldır",
+  "pinForgotWarning": "PIN kodunuzu unutursanız, güvenliğiniz için uygulamayı silip tekrar yüklemeniz gerekir. Bu işlem yerel verilerinizin silinmesine neden olabilir.",
+
+  "pinSetupAppBarTitle": "Güvenlik",
+  "pinSetupTitle": "PIN Oluştur",
+  "pinSetupSubtitle": "Güvenliğin için PIN oluştur",
+  "pinConfirmTitle": "PIN Onayla",
+  "pinConfirmSubtitle": "PIN'ini tekrar gir",
+
+  "pinVerifyTitle": "PIN Gir",
+  "pinVerifySubtitle": "Devam etmek için PIN'ini gir",
+
+  "pinDisableTitle": "PIN Kaldır",
+  "pinDisableSubtitle": "Mevcut PIN'ini gir",
+
+  "pinChangeTitle": "PIN Değiştir",
+  "pinChangeCurrentSubtitle": "Mevcut PIN'ini gir",
+  "pinChangeNewTitle": "Yeni PIN",
+  "pinChangeNewSubtitle": "Yeni PIN'ini gir",
+  "pinChangeConfirmTitle": "Yeni PIN Onayla",
+  "pinChangeConfirmSubtitle": "Yeni PIN'ini tekrar gir"
 }
