@@ -112,6 +112,25 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
           ),
+          SliverSectionHeader(title: AppStrings.securityTitle.tr().toUpperCase()),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+              child: Card(
+                elevation: 0,
+                clipBehavior: Clip.antiAlias,
+                color: colorScheme.surfaceContainerLow,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                child: SettingsListItem(
+                  leadingIcon: Icons.lock_outline_rounded,
+                  title: AppStrings.appLockTitle.tr(),
+                  subtitle: AppStrings.appLockSubtitle.tr(),
+                  trailing: const Icon(Icons.chevron_right, size: 20),
+                  onTap: () => context.push("/settings/security"),
+                ),
+              ),
+            ),
+          ),
           const SliverToBoxAdapter(child: SizedBox(height: 12)),
           SliverSectionHeader(title: AppStrings.dataManagementTitle.tr().toUpperCase()),
           SliverPadding(
