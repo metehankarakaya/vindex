@@ -37,6 +37,7 @@ dependencies:
   share_plus: ^10.1.4
   file_picker: ^8.0.0
   flutter_native_splash: ^2.4.7
+  flutter_secure_storage: ^10.0.0
 
   # State Management
   flutter_riverpod: ^2.6.1
