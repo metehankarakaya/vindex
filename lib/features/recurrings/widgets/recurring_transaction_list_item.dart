@@ -24,7 +24,11 @@ class RecurringTransactionListItem extends ConsumerWidget {
     final categoryColor = colorForCategory(recurringTransaction.category);
 
     String formatDateRange(DateTime startDate, DateTime? endDate) {
-      final dateFormat = DateFormat('dd MMMM yyyy', context.locale.toString());
+      final l = context.locale;
+      final localeStr = (l.countryCode?.isNotEmpty == true)
+          ? '${l.languageCode}_${l.countryCode}'
+          : l.languageCode;
+      final dateFormat = DateFormat('dd MMMM yyyy', localeStr);
       final start = dateFormat.format(startDate);
       if (endDate == null) {
         return "$start - ∞";

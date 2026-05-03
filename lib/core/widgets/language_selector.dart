@@ -98,7 +98,9 @@ class _LanguageOption extends ConsumerWidget {
           await Future.delayed(const Duration(milliseconds: 150));
           if (context.mounted) {
             await context.setLocale(locale);
-            ref.read(localeProvider.notifier).state = locale.toString();
+            ref.read(localeProvider.notifier).state = (locale.countryCode?.isNotEmpty == true)
+                ? '${locale.languageCode}_${locale.countryCode}'
+                : locale.languageCode;
           }
         },
       ),

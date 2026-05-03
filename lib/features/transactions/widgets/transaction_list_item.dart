@@ -26,15 +26,19 @@ class TransactionListItem extends ConsumerWidget {
       final now = DateTime.now();
       final today = DateTime(now.year, now.month, now.day);
       final transactionDay = DateTime(date.year, date.month, date.day);
+      final l = context.locale;
+      final localeStr = (l.countryCode?.isNotEmpty == true)
+          ? '${l.languageCode}_${l.countryCode}'
+          : l.languageCode;
 
       final diff = today.difference(transactionDay).inDays;
 
       if (diff == 0) {
-        return DateFormat.Hm(context.locale.toString()).format(date);
+        return DateFormat.Hm(localeStr).format(date);
       } else if (diff < 7) {
-        return DateFormat("EEEE HH:mm", context.locale.toString()).format(date);
+        return DateFormat("EEEE HH:mm", localeStr).format(date);
       } else {
-        return DateFormat("d MMM HH:mm", context.locale.toString()).format(date);
+        return DateFormat("d MMM HH:mm", localeStr).format(date);
       }
     }
 
