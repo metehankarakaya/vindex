@@ -60,8 +60,8 @@ class _PinSetupState extends ConsumerState<PinDisable> with SingleTickerProvider
     if (!mounted) return;
 
     if (isValid) {
-      context.go('/settings/security');
       await ref.read(securityProvider.notifier).disableLock();
+      if (mounted) context.go('/settings/security');
     } else {
       _shakeController.forward(from: 0);
     }
