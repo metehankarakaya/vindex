@@ -6,6 +6,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/models/transactions_table.dart';
 import '../../../core/providers/currency_formatter_provider.dart';
 import '../../../core/utils/category_utils.dart';
+import '../../../core/utils/date_formatter.dart';
 import '../../../database/app_database.dart';
 
 class TransactionListItem extends ConsumerWidget {
@@ -21,26 +22,6 @@ class TransactionListItem extends ConsumerWidget {
 
     final bool isExpense = transaction.type == TransactionType.expense;
     final categoryColor = colorForCategory(transaction.category);
-
-    String formatDate(BuildContext context, DateTime date) {
-      final now = DateTime.now();
-      final today = DateTime(now.year, now.month, now.day);
-      final transactionDay = DateTime(date.year, date.month, date.day);
-      final l = context.locale;
-      final localeStr = (l.countryCode?.isNotEmpty == true)
-          ? '${l.languageCode}_${l.countryCode}'
-          : l.languageCode;
-
-      final diff = today.difference(transactionDay).inDays;
-
-      if (diff == 0) {
-        return DateFormat.Hm(localeStr).format(date);
-      } else if (diff < 7) {
-        return DateFormat("EEEE HH:mm", localeStr).format(date);
-      } else {
-        return DateFormat("d MMM HH:mm", localeStr).format(date);
-      }
-    }
 
     final Color amountColor = isExpense
       ? colorScheme.error
@@ -82,7 +63,7 @@ class TransactionListItem extends ConsumerWidget {
         ),
       ),
       subtitle: Text(
-        formatDate(context, transaction.createdAt),
+        DateFormatter.formatTransactionDate(transaction.createdAt, context.locale),
         style: TextStyle(
           color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
         ),

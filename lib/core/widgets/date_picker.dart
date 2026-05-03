@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_strings.dart';
+import '../utils/date_formatter.dart';
 
 class DatePickerField extends StatelessWidget {
   final String label;
@@ -60,7 +61,7 @@ class DatePickerField extends StatelessWidget {
                 Text(
                   selectedDate == null
                     ? hintText
-                    : DateFormat('dd MMMM yyyy', context.locale.countryCode?.isNotEmpty == true ? '${context.locale.languageCode}_${context.locale.countryCode}' : context.locale.languageCode).format(selectedDate!),
+                    : DateFormatter.formatFullDate(selectedDate!, context.locale),
                   style: theme.textTheme.bodyLarge?.copyWith(
                     color: selectedDate == null
                       ? colorScheme.onSurfaceVariant

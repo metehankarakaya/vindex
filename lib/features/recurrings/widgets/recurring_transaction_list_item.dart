@@ -7,6 +7,7 @@ import 'package:vindex/database/app_database.dart';
 import '../../../core/models/transactions_table.dart';
 import '../../../core/providers/currency_formatter_provider.dart';
 import '../../../core/utils/category_utils.dart';
+import '../../../core/utils/date_formatter.dart';
 
 class RecurringTransactionListItem extends ConsumerWidget {
   final RecurringTransaction recurringTransaction;
@@ -24,16 +25,9 @@ class RecurringTransactionListItem extends ConsumerWidget {
     final categoryColor = colorForCategory(recurringTransaction.category);
 
     String formatDateRange(DateTime startDate, DateTime? endDate) {
-      final l = context.locale;
-      final localeStr = (l.countryCode?.isNotEmpty == true)
-          ? '${l.languageCode}_${l.countryCode}'
-          : l.languageCode;
-      final dateFormat = DateFormat('dd MMMM yyyy', localeStr);
-      final start = dateFormat.format(startDate);
-      if (endDate == null) {
-        return "$start - ∞";
-      }
-      return "$start - ${dateFormat.format(endDate)}";
+      final start = DateFormatter.formatFullDate(startDate, context.locale);
+      if (endDate == null) return "$start - ∞";
+      return "$start - ${DateFormatter.formatFullDate(endDate, context.locale)}";
     }
 
     final Color amountColor = isExpense
