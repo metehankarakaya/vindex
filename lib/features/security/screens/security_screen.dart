@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vindex/features/security/widgets/secuirt_list_item.dart';
+import 'package:vindex/features/security/widgets/security_list_item.dart';
 
 import '../../../core/constants/app_strings.dart';
 import '../providers/security_provider.dart';

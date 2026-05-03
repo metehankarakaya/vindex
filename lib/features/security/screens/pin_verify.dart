@@ -61,7 +61,7 @@ class _PinSetupState extends ConsumerState<PinVerify> with SingleTickerProviderS
     if (!isValid) {
       _shakeController.forward(from: 0);
     }
-    // isValid ise router otomatik dashboard'a yönlendirir
+    // If valid, the router guard automatically redirects to the dashboard
   }
 
   void _onDelete() {
