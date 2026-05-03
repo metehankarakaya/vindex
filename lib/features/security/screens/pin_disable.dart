@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vindex/core/constants/app_strings.dart';
+import 'package:vindex/core/constants/pin_constants.dart';
 
 import '../providers/security_provider.dart';
 
@@ -25,15 +26,15 @@ class _PinSetupState extends ConsumerState<PinDisable> with SingleTickerProvider
   void initState() {
     super.initState();
     _shakeController = AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: PinConstants.shakeAnimationDuration,
       vsync: this,
     );
     _shakeAnimation = TweenSequence([
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: -12.0), weight: 1),
-      TweenSequenceItem(tween: Tween(begin: -12.0, end: 12.0), weight: 2),
-      TweenSequenceItem(tween: Tween(begin: 12.0, end: -12.0), weight: 2),
-      TweenSequenceItem(tween: Tween(begin: -12.0, end: 12.0), weight: 2),
-      TweenSequenceItem(tween: Tween(begin: 12.0, end: 0.0), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: -PinConstants.shakeOffset), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: -PinConstants.shakeOffset, end: PinConstants.shakeOffset), weight: 2),
+      TweenSequenceItem(tween: Tween(begin: PinConstants.shakeOffset, end: -PinConstants.shakeOffset), weight: 2),
+      TweenSequenceItem(tween: Tween(begin: -PinConstants.shakeOffset, end: PinConstants.shakeOffset), weight: 2),
+      TweenSequenceItem(tween: Tween(begin: PinConstants.shakeOffset, end: 0.0), weight: 1),
     ]).animate(_shakeController);
     _shakeController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -87,11 +88,11 @@ class _PinSetupState extends ConsumerState<PinDisable> with SingleTickerProvider
           physics: const NeverScrollableScrollPhysics(),
           slivers: [
             SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: PinConstants.screenPadding),
               sliver: SliverToBoxAdapter(
                 child: Column(
                   children: [
-                    const SizedBox(height: 100),
+                    const SizedBox(height: PinConstants.topSpacing),
                     Text(
                       AppStrings.pinDisableTitle.tr(),
                       style: theme.textTheme.headlineLarge?.copyWith(
@@ -100,7 +101,7 @@ class _PinSetupState extends ConsumerState<PinDisable> with SingleTickerProvider
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: PinConstants.titleSubtitleGap),
                     Text(
                       AppStrings.pinDisableSubtitle.tr(),
                       style: theme.textTheme.bodyMedium?.copyWith(
@@ -108,7 +109,7 @@ class _PinSetupState extends ConsumerState<PinDisable> with SingleTickerProvider
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 48),
+                    const SizedBox(height: PinConstants.subtitleDotsGap),
                     AnimatedBuilder(
                       animation: _shakeAnimation,
                       builder: (context, child) => Transform.translate(
@@ -120,35 +121,35 @@ class _PinSetupState extends ConsumerState<PinDisable> with SingleTickerProvider
                         children: List.generate(4, (index) {
                           final isFilled = _enteredPin.length > index;
                           return AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            width: 20,
-                            height: 20,
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            duration: PinConstants.dotAnimationDuration,
+                            width: PinConstants.dotSize,
+                            height: PinConstants.dotSize,
+                            margin: const EdgeInsets.symmetric(horizontal: PinConstants.dotMargin),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: isFilled ? colorScheme.primary : Colors.transparent,
                               border: Border.all(
                                 color: isFilled ? colorScheme.primary : colorScheme.outlineVariant,
-                                width: 2,
+                                width: PinConstants.dotBorderWidth,
                               ),
                             ),
                           );
                         }),
                       ),
                     ),
-                    const SizedBox(height: 60),
+                    const SizedBox(height: PinConstants.dotsKeypadGap),
                   ],
                 ),
               ),
             ),
             SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: PinConstants.screenPadding),
               sliver: SliverGrid(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 1.2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
+                  crossAxisCount: PinConstants.gridColumns,
+                  childAspectRatio: PinConstants.gridAspectRatio,
+                  mainAxisSpacing: PinConstants.gridSpacing,
+                  crossAxisSpacing: PinConstants.gridSpacing,
                 ),
                 delegate: SliverChildBuilderDelegate(
                   childCount: 12,
@@ -163,7 +164,7 @@ class _PinSetupState extends ConsumerState<PinDisable> with SingleTickerProvider
                           child: Center(
                             child: Icon(
                               Icons.backspace_outlined,
-                              size: 28,
+                              size: PinConstants.backspaceIconSize,
                               color: colorScheme.onSurface
                             ),
                           ),
