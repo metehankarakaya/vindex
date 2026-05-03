@@ -36,6 +36,20 @@ class BackupService {
   static const _aesKey = 'VINDEX_BACKUP_KEY_2024_SECURE_V1';
   static const _magic = [0x56, 0x42, 0x4B, 0x31]; // VBK1
 
+  static const _validCategories = {
+    'market', 'restaurant', 'transport', 'subscription',
+    'bills', 'health', 'entertainment', 'salary', 'other',
+  };
+
+  static final _uuidRegex = RegExp(
+    r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
+    caseSensitive: false,
+  );
+
+  static T? _tryByName<T extends Enum>(List<T> values, String name) {
+    try { return values.byName(name); } catch (_) { return null; }
+  }
+
   Uint8List _encrypt(String input) {
     final key = enc.Key.fromUtf8(_aesKey);
     final iv = enc.IV.fromSecureRandom(12);
@@ -190,16 +204,26 @@ class BackupService {
       final line = lines[i].trim();
       if (line.isEmpty) continue;
       final fields = _parseCsvLine(line);
-      if (fields.length < 6) throw Exception('Invalid transaction line');
-      final amountCents = int.parse(fields[2]);
-      if (amountCents < 0 || amountCents > 999_999_999_99) continue;
+      if (fields.length < 6) continue;
+      final id = fields[0];
+      if (!_uuidRegex.hasMatch(id)) continue;
+      final title = fields[1];
+      if (title.length > 500) continue;
+      final amountCents = int.tryParse(fields[2]);
+      if (amountCents == null || amountCents <= 0 || amountCents > 999_999_999_99) continue;
+      final category = fields[3];
+      if (!_validCategories.contains(category)) continue;
+      final type = _tryByName(TransactionType.values, fields[4]);
+      if (type == null) continue;
+      final createdAt = DateTime.tryParse(fields[5]);
+      if (createdAt == null) continue;
       result.add(TransactionsCompanion(
-        id: Value(fields[0]),
-        title: Value(fields[1]),
+        id: Value(id),
+        title: Value(title),
         amountCents: Value(amountCents),
-        category: Value(fields[3]),
-        type: Value(TransactionType.values.byName(fields[4])),
-        createdAt: Value(DateTime.parse(fields[5])),
+        category: Value(category),
+        type: Value(type),
+        createdAt: Value(createdAt),
       ));
     }
     return result;
@@ -211,20 +235,38 @@ class BackupService {
       final line = lines[i].trim();
       if (line.isEmpty) continue;
       final fields = _parseCsvLine(line);
-      if (fields.length < 10) throw Exception('Invalid recurring line');
-      final amountCents = int.parse(fields[2]);
-      if (amountCents < 0 || amountCents > 999_999_999_99) continue;
+      if (fields.length < 10) continue;
+      final id = fields[0];
+      if (!_uuidRegex.hasMatch(id)) continue;
+      final title = fields[1];
+      if (title.length > 500) continue;
+      final amountCents = int.tryParse(fields[2]);
+      if (amountCents == null || amountCents <= 0 || amountCents > 999_999_999_99) continue;
+      final category = fields[3];
+      if (!_validCategories.contains(category)) continue;
+      final type = _tryByName(TransactionType.values, fields[4]);
+      if (type == null) continue;
+      final frequency = _tryByName(RecurringFrequency.values, fields[5]);
+      if (frequency == null) continue;
+      final startDate = DateTime.tryParse(fields[6]);
+      if (startDate == null) continue;
+      final endDate = fields[7].isEmpty ? null : DateTime.tryParse(fields[7]);
+      if (fields[7].isNotEmpty && endDate == null) continue;
+      if (fields[8] != 'true' && fields[8] != 'false') continue;
+      final isActive = fields[8] == 'true';
+      final lastProcessDate = fields[9].isEmpty ? null : DateTime.tryParse(fields[9]);
+      if (fields[9].isNotEmpty && lastProcessDate == null) continue;
       result.add(RecurringTransactionsCompanion(
-        id: Value(fields[0]),
-        title: Value(fields[1]),
+        id: Value(id),
+        title: Value(title),
         amountCents: Value(amountCents),
-        category: Value(fields[3]),
-        type: Value(TransactionType.values.byName(fields[4])),
-        frequency: Value(RecurringFrequency.values.byName(fields[5])),
-        startDate: Value(DateTime.parse(fields[6])),
-        endDate: Value(fields[7].isEmpty ? null : DateTime.parse(fields[7])),
-        isActive: Value(fields[8] == 'true'),
-        lastProcessDate: Value(fields[9].isEmpty ? null : DateTime.parse(fields[9])),
+        category: Value(category),
+        type: Value(type),
+        frequency: Value(frequency),
+        startDate: Value(startDate),
+        endDate: Value(endDate),
+        isActive: Value(isActive),
+        lastProcessDate: Value(lastProcessDate),
       ));
     }
     return result;
