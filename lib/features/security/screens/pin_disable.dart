@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/core/constants/pin_constants.dart';
+import 'package:vindex/core/widgets/pin_dots.dart';
+import 'package:vindex/core/widgets/pin_keypad.dart';
 
 import '../providers/security_provider.dart';
 
@@ -110,87 +112,19 @@ class _PinSetupState extends ConsumerState<PinDisable> with SingleTickerProvider
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: PinConstants.subtitleDotsGap),
-                    AnimatedBuilder(
-                      animation: _shakeAnimation,
-                      builder: (context, child) => Transform.translate(
-                        offset: Offset(_shakeAnimation.value, 0),
-                        child: child,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(4, (index) {
-                          final isFilled = _enteredPin.length > index;
-                          return AnimatedContainer(
-                            duration: PinConstants.dotAnimationDuration,
-                            width: PinConstants.dotSize,
-                            height: PinConstants.dotSize,
-                            margin: const EdgeInsets.symmetric(horizontal: PinConstants.dotMargin),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: isFilled ? colorScheme.primary : Colors.transparent,
-                              border: Border.all(
-                                color: isFilled ? colorScheme.primary : colorScheme.outlineVariant,
-                                width: PinConstants.dotBorderWidth,
-                              ),
-                            ),
-                          );
-                        }),
-                      ),
+                    PinDots(
+                      shakeAnimation: _shakeAnimation,
+                      dotCount: 4,
+                      filledCount: _enteredPin.length,
                     ),
                     const SizedBox(height: PinConstants.dotsKeypadGap),
                   ],
                 ),
               ),
             ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: PinConstants.screenPadding),
-              sliver: SliverGrid(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: PinConstants.gridColumns,
-                  childAspectRatio: PinConstants.gridAspectRatio,
-                  mainAxisSpacing: PinConstants.gridSpacing,
-                  crossAxisSpacing: PinConstants.gridSpacing,
-                ),
-                delegate: SliverChildBuilderDelegate(
-                  childCount: 12,
-                    (context, index) {
-                    if (index == 9) return const SizedBox.shrink();
-                    if (index == 11) {
-                      return Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: _onDelete,
-                          customBorder: const CircleBorder(),
-                          child: Center(
-                            child: Icon(
-                              Icons.backspace_outlined,
-                              size: PinConstants.backspaceIconSize,
-                              color: colorScheme.onSurface
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    final val = index == 10 ? "0" : "${index + 1}";
-                    return Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () => _onKeyPress(val),
-                        customBorder: const CircleBorder(),
-                        child: Center(
-                          child: Text(
-                            val,
-                            style: theme.textTheme.headlineMedium?.copyWith(
-                              fontWeight: FontWeight.w500,
-                              color: colorScheme.onSurface,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+            PinKeypad(
+              onKeyPress: _onKeyPress,
+              onDelete: _onDelete,
             ),
           ],
         ),
