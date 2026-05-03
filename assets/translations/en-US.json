@@ -1,4 +1,6 @@
 {
+  "appName": "Vindex",
+  "backupSubject": "Vindex Backup",
   "dashboard": "Dashboard",
   "transactions": "Transactions",
   "instant": "Instant",

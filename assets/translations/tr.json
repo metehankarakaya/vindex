@@ -1,4 +1,6 @@
 {
+  "appName": "Vindex",
+  "backupSubject": "Vindex Yedeklemesi",
   "dashboard": "Ana Sayfa",
   "transactions": "İşlemler",
   "instant": "Anlık",

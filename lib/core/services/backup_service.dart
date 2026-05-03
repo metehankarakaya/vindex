@@ -4,9 +4,11 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../database/app_database.dart';
+import '../constants/app_strings.dart';
 import '../../database/daos/recurring_transactions_dao.dart';
 import '../../database/daos/transactions_dao.dart';
 import '../models/recurring_transaction_table.dart';
@@ -90,7 +92,7 @@ class BackupService {
 
     await Share.shareXFiles(
       [XFile(file.path)],
-      subject: 'Vindex Backup',
+      subject: AppStrings.backupSubject.tr(),
     );
   }
 

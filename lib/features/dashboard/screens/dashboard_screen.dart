@@ -36,7 +36,7 @@ class DashboardScreen extends ConsumerWidget {
               stretchModes: const [StretchMode.zoomBackground],
               titlePadding: const EdgeInsetsDirectional.only(start: 16, bottom: 16),
               title: Text(
-                "Vindex",
+                AppStrings.appName.tr(),
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   letterSpacing: -0.5,

@@ -1,4 +1,7 @@
 class AppStrings {
+  static const String appName = "appName";
+  static const String backupSubject = "backupSubject";
+
   static const String dashboard = "dashboard";
   static const String transactions = "transactions";
   static const String recurring = "recurring";
