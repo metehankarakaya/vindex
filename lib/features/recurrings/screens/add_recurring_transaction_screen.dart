@@ -48,7 +48,11 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
     return switch (_selectedFrequency!) {
       RecurringFrequency.daily => _startDate!.add(const Duration(days: 1)),
       RecurringFrequency.weekly => _startDate!.add(const Duration(days: 7)),
-      RecurringFrequency.monthly => DateTime(_startDate!.year, _startDate!.month + 1, _startDate!.day),
+      RecurringFrequency.monthly => DateTime(
+          _startDate!.year,
+          _startDate!.month + 1,
+          _startDate!.day.clamp(1, DateTime(_startDate!.year, _startDate!.month + 2, 0).day),
+        ),
       RecurringFrequency.yearly => DateTime(_startDate!.year + 1, _startDate!.month, _startDate!.day),
     };
   }
