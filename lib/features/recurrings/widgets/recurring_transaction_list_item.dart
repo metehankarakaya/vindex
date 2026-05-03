@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vindex/core/constants/app_colors.dart';
 import 'package:vindex/database/app_database.dart';
 
 import '../../../core/models/transactions_table.dart';
@@ -33,7 +34,7 @@ class RecurringTransactionListItem extends ConsumerWidget {
 
     final Color amountColor = isExpense
       ? colorScheme.error
-      : const Color(0xFF10B981);
+      : AppColors.income;
 
     return Opacity(
       opacity: recurringTransaction.isActive ? 1.0 : 0.6,

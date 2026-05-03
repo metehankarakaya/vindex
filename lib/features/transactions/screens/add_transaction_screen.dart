@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
+import 'package:vindex/core/constants/app_colors.dart';
 import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/core/utils/currency_input_formatter.dart';
 import 'package:vindex/core/utils/vindex_snackbar.dart';
@@ -97,7 +98,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
     final Color amountColor = _selectedType == TransactionType.expense
       ? colorScheme.error
-      : const Color(0xFF10B981);
+      : AppColors.income;
 
     return SingleChildScrollView(
       child: Padding(

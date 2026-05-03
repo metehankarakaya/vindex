@@ -7,6 +7,7 @@ import 'package:vindex/core/widgets/frequency_selector.dart';
 import 'package:vindex/database/app_database.dart';
 import 'package:vindex/features/recurrings/providers/recurring_transaction_provider.dart';
 
+import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/models/recurring_transaction_table.dart';
 import '../../../core/models/transactions_table.dart';
@@ -122,7 +123,7 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
 
     final Color amountColor = _selectedType == TransactionType.expense
       ? colorScheme.error
-      : const Color(0xFF10B981);
+      : AppColors.income;
 
     return SingleChildScrollView(
       child: Padding(

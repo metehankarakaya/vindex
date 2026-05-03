@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:vindex/core/constants/app_colors.dart';
 import 'package:vindex/core/constants/app_strings.dart';
 
 import '../models/transactions_table.dart';
@@ -35,10 +36,10 @@ class TransactionTypeSelector extends StatelessWidget {
           side: BorderSide(color: colorScheme.outlineVariant),
           selectedBackgroundColor: selectedType == TransactionType.expense
             ? colorScheme.error.withValues(alpha: 0.1)
-            : const Color(0xFF10B981).withValues(alpha: 0.1),
+            : AppColors.income.withValues(alpha: 0.1),
           selectedForegroundColor: selectedType == TransactionType.expense
             ? colorScheme.error
-            : const Color(0xFF10B981),
+            : AppColors.income,
         ),
       ),
     );

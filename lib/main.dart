@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vindex/core/providers/database_provider.dart';
 import 'package:vindex/router/app_router.dart';
 
+import 'core/constants/app_colors.dart';
 import 'core/providers/shared_preferences_provider.dart';
 import 'core/providers/theme_provider.dart';
 import 'database/app_database.dart';
@@ -59,16 +60,16 @@ class MyApp extends ConsumerWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2563EB),
+          seedColor: AppColors.primary,
           brightness: Brightness.light,
-          surface: const Color(0xFFF8FAFC),
+          surface: AppColors.surface,
         ),
-        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+        scaffoldBackgroundColor: AppColors.surface,
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2563EB),
+          seedColor: AppColors.primary,
           brightness: Brightness.dark,
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/constants/app_colors.dart';
 import '../../../core/models/transactions_table.dart';
 import '../../../core/providers/currency_formatter_provider.dart';
 import '../../../core/utils/category_utils.dart';
@@ -39,7 +40,7 @@ class TransactionListItem extends ConsumerWidget {
 
     final Color amountColor = isExpense
       ? colorScheme.error
-      : const Color(0xFF10B981);
+      : AppColors.income;
 
     return ListTile(
       leading: Container(
