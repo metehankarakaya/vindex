@@ -111,7 +111,7 @@ class _ThemeOption extends StatelessWidget {
           Navigator.pop(context);
           await Future.delayed(const Duration(milliseconds: 150));
           if (context.mounted) {
-            ref.read(themeModeProvider.notifier).setTheme(mode);
+            await ref.read(themeModeProvider.notifier).setTheme(mode);
           }
         },
       ),

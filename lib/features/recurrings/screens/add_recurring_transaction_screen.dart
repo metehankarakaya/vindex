@@ -13,6 +13,7 @@ import '../../../core/models/recurring_transaction_table.dart';
 import '../../../core/models/transactions_table.dart';
 import '../../../core/providers/currency_formatter_provider.dart';
 import '../../../core/utils/currency_input_formatter.dart';
+import '../../../core/utils/vindex_snackbar.dart';
 import '../../../core/widgets/category_selector.dart';
 import '../../../core/widgets/date_picker.dart';
 import '../../../core/widgets/save_transaction_button.dart';
@@ -83,7 +84,10 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
 
       if (mounted) Navigator.pop(context);
     } catch (e) {
-      if (mounted) setState(() => _isSaving = false);
+      if (mounted) {
+        setState(() => _isSaving = false);
+        VindexSnackBar.showSnackBar(context, AppStrings.saveTransactionError.tr());
+      }
     }
   }
 

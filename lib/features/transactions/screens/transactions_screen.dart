@@ -18,7 +18,6 @@ class TransactionsScreenState extends ConsumerState<TransactionsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
@@ -26,7 +25,6 @@ class TransactionsScreenState extends ConsumerState<TransactionsScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _scrollController.dispose();
     super.dispose();
   }

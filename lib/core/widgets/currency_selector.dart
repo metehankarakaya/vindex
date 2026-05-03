@@ -144,7 +144,7 @@ class _CurrencyOptionTile extends ConsumerWidget {
               if (confirm == true && context.mounted) {
                 await ref.read(transactionDaoProvider).deleteAllTransactions();
                 await ref.read(recurringTransactionDaoProvider).deleteAllRecurringTransactions();
-                ref.read(currencyProvider.notifier).setCurrency(option);
+                await ref.read(currencyProvider.notifier).setCurrency(option);
                 if (context.mounted) Navigator.pop(context);
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
