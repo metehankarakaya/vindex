@@ -72,6 +72,7 @@
   "totalInstantTransactions": "Instant Transactions",
   "totalRecurringTransactions": "Recurring Transactions",
   "saveTransactionError": "Failed to save transaction.",
+  "loadError": "Error: {error}",
   "importWarning": "Importing may affect your existing data.",
   "importSuccess": "Data imported successfully.",
   "importInvalidFile": "Invalid or corrupted backup file.",

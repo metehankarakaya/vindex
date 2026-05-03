@@ -85,6 +85,7 @@ class AppStrings {
   static const String totalRecurringTransactions = "totalRecurringTransactions";
 
   static const String saveTransactionError = "saveTransactionError";
+  static const String loadError = "loadError";
 
   static const String importWarning = "importWarning";
   static const String importSuccess = "importSuccess";

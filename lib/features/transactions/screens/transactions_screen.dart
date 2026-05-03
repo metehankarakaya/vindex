@@ -116,7 +116,7 @@ class TransactionsScreenState extends ConsumerState<TransactionsScreen> {
             ),
             error: (err, stack) => SliverToBoxAdapter(
               child: Center(
-                child: Text("Hata: $err"),
+                child: Text(AppStrings.loadError.tr(namedArgs: {'error': err.toString()})),
               ),
             )
           )

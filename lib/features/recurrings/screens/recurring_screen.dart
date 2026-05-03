@@ -73,7 +73,7 @@ class RecurringScreen extends ConsumerWidget {
             ),
             error: (err, stackTrace) => SliverToBoxAdapter(
               child: Center(
-                child: Text("Hata: $err"),
+                child: Text(AppStrings.loadError.tr(namedArgs: {'error': err.toString()})),
               ),
             ),
           )
