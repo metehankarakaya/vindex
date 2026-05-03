@@ -35,7 +35,7 @@ class BackupService {
   // 32-byte key required for AES-256
   static const _aesKey = 'VINDEX_BACKUP_KEY_2024_SECURE_V1';
 
-  String _encrypt(String input) {
+  Uint8List _encrypt(String input) {
     final key = enc.Key.fromUtf8(_aesKey);
     final iv = enc.IV.fromSecureRandom(12);
     final encrypter = enc.Encrypter(enc.AES(key, mode: enc.AESMode.gcm));
@@ -43,21 +43,10 @@ class BackupService {
     final combined = Uint8List(12 + encrypted.bytes.length);
     combined.setAll(0, iv.bytes);
     combined.setAll(12, encrypted.bytes);
-    final result = base64Encode(combined);
-    // DEBUG — remove after testing
-    print('[BackupService] _encrypt output length: ${result.length}');
-    print('[BackupService] _encrypt output (first 80 chars): ${result.substring(0, result.length.clamp(0, 80))}');
-    print('[BackupService] _encrypt output (last 20 chars): ${result.substring((result.length - 20).clamp(0, result.length))}');
-    return result;
+    return combined;
   }
 
-  String _decrypt(String input) {
-    // DEBUG — remove after testing
-    print('[BackupService] _decrypt input length: ${input.length}');
-    print('[BackupService] _decrypt input (first 80 chars): ${input.substring(0, input.length.clamp(0, 80))}');
-    print('[BackupService] _decrypt input (last 20 chars): ${input.substring((input.length - 20).clamp(0, input.length))}');
-    print('[BackupService] _decrypt trailing bytes: ${input.codeUnits.reversed.take(4).toList()}');
-    final combined = base64Decode(input.trim());
+  String _decrypt(Uint8List combined) {
     if (combined.length <= 28) throw FormatException('Invalid backup data');
     final iv = enc.IV(Uint8List.fromList(combined.sublist(0, 12)));
     final cipherBytes = enc.Encrypted(Uint8List.fromList(combined.sublist(12)));
@@ -98,18 +87,23 @@ class BackupService {
 
   Future<void> exportBackup({required bool encrypted}) async {
     final content = await _buildCsvContent();
-    final finalContent = encrypted ? _encrypt(content) : content;
     final extension = encrypted ? 'vbk' : 'csv';
+    final mimeType = encrypted ? 'application/octet-stream' : 'text/csv';
 
     final now = DateTime.now();
     final fileName = 'vindex_backup_${now.year}_${now.month.toString().padLeft(2, '0')}_${now.day.toString().padLeft(2, '0')}.$extension';
 
     final tempDir = await getTemporaryDirectory();
     final file = File('${tempDir.path}/$fileName');
-    await file.writeAsString(finalContent);
+
+    if (encrypted) {
+      await file.writeAsBytes(_encrypt(content));
+    } else {
+      await file.writeAsString(content);
+    }
 
     await Share.shareXFiles(
-      [XFile(file.path)],
+      [XFile(file.path, mimeType: mimeType)],
       subject: AppStrings.backupSubject.tr(),
     );
   }
@@ -127,14 +121,16 @@ class BackupService {
       if (path == null) return ImportResult.error;
 
       final file = File(path);
-      String content = await file.readAsString();
+      final String content;
 
       if (path.endsWith('.vbk')) {
         try {
-          content = _decrypt(content);
+          content = _decrypt(await file.readAsBytes());
         } catch (_) {
           return ImportResult.invalidFile;
         }
+      } else {
+        content = await file.readAsString();
       }
 
       final lines = content.split('\n');
