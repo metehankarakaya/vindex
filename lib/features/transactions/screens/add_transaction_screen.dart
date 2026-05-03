@@ -36,12 +36,14 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   }
 
   void _saveTransaction() async {
+    final amount = _formatter.tryParse(_amountController.text.trim());
+    if (amount == null) return;
+
     setState(() => _isSaving = true);
 
     try {
       String uuid = const Uuid().v4();
-      final amount = _formatter.tryParse(_amountController.text.trim());
-      final int amountCent = (amount! * 100).round();
+      final int amountCent = (amount * 100).round();
 
       final entry = TransactionsCompanion(
         id: Value(uuid),
