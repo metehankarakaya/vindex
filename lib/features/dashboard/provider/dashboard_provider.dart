@@ -4,7 +4,7 @@ import '../../../core/models/transactions_table.dart';
 import '../../../database/app_database.dart';
 import '../../transactions/providers/transaction_provider.dart';
 
-final toggleProvider = StateProvider<bool>((ref) {
+final toggleProvider = StateProvider.autoDispose<bool>((ref) {
   return false;
 });
 
