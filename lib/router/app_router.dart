@@ -20,6 +20,21 @@ import '../features/transactions/screens/transactions_screen.dart';
 GoRouter buildRouter(WidgetRef ref) {
   return GoRouter(
     initialLocation: "/dashboard",
+    errorBuilder: (context, state) => Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.error_outline, size: 48, color: Theme.of(context).colorScheme.error),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: () => context.go('/dashboard'),
+              child: Text(AppStrings.dashboard.tr()),
+            ),
+          ],
+        ),
+      ),
+    ),
     refreshListenable: _SecurityStateNotifier(ref),
     redirect: (context, state) {
       final securityAsync = ref.read(securityProvider);
