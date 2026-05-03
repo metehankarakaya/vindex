@@ -75,7 +75,7 @@ class StatsScreen extends ConsumerWidget {
                 ),
               ),
             ),
-          ) : SliverToBoxAdapter(child: const SizedBox(),),
+          ) : const SliverToBoxAdapter(child: SizedBox.shrink()),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverList(

@@ -58,26 +58,23 @@ class SecurityScreen extends ConsumerWidget {
               ),
             ),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverFillRemaining(
-              hasScrollBody: false,
-              child: Align(
-                alignment: .bottomCenter,
-                child: Card(
-                  elevation: 0,
-                  margin: const EdgeInsets.only(bottom: 16.0),
-                  color: colorScheme.surfaceContainerLow,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Text(
-                      AppStrings.pinForgotWarning.tr(),
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant.withOpacity(0.7),
-                      ),
-                      textAlign: .center,
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Align(
+              alignment: .bottomCenter,
+              child: Card(
+                elevation: 0,
+                margin: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
+                color: colorScheme.surfaceContainerLow,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Text(
+                    AppStrings.pinForgotWarning.tr(),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSurfaceVariant.withOpacity(0.7),
                     ),
+                    textAlign: .center,
                   ),
                 ),
               ),
