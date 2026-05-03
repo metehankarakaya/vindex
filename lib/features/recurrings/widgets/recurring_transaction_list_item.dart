@@ -6,8 +6,8 @@ import 'package:vindex/database/app_database.dart';
 
 import '../../../core/models/transactions_table.dart';
 import '../../../core/providers/currency_formatter_provider.dart';
-import '../../../core/utils/category_utils.dart';
 import '../../../core/utils/date_formatter.dart';
+import '../../../core/widgets/category_icon_widget.dart';
 
 class RecurringTransactionListItem extends ConsumerWidget {
   final RecurringTransaction recurringTransaction;
@@ -22,7 +22,6 @@ class RecurringTransactionListItem extends ConsumerWidget {
     final formattedAmount = formatter.format(recurringTransaction.amountCents / 100);
 
     final bool isExpense = recurringTransaction.type == TransactionType.expense;
-    final categoryColor = colorForCategory(recurringTransaction.category);
 
     String formatDateRange(DateTime startDate, DateTime? endDate) {
       final start = DateFormatter.formatFullDate(startDate, context.locale);
@@ -38,18 +37,7 @@ class RecurringTransactionListItem extends ConsumerWidget {
       opacity: recurringTransaction.isActive ? 1.0 : 0.6,
       child: ListTile(
         onLongPress: onLongPress,
-        leading: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: categoryColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Icon(
-            iconForCategory(recurringTransaction.category),
-            color: categoryColor,
-            size: 24,
-          ),
-        ),
+        leading: CategoryIconWidget(category: recurringTransaction.category),
         title: Row(
           children: [
             Flexible(

@@ -76,7 +76,7 @@ class SettingsScreen extends ConsumerWidget {
                 elevation: 0,
                 clipBehavior: Clip.antiAlias,
                 color: colorScheme.surfaceContainerLow,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 child: Column(
                   children: [
                     SettingsListItem(
@@ -99,7 +99,7 @@ class SettingsScreen extends ConsumerWidget {
                 elevation: 0,
                 clipBehavior: Clip.antiAlias,
                 color: colorScheme.surfaceContainerLow,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 child: Column(
                   children: [
                     SettingsListItem(

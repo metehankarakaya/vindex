@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/models/transactions_table.dart';
 import '../../../core/providers/currency_formatter_provider.dart';
-import '../../../core/utils/category_utils.dart';
 import '../../../core/utils/date_formatter.dart';
+import '../../../core/widgets/category_icon_widget.dart';
 import '../../../database/app_database.dart';
 
 class TransactionListItem extends ConsumerWidget {
@@ -21,25 +21,13 @@ class TransactionListItem extends ConsumerWidget {
     final formattedAmount = formatter.format(transaction.amountCents / 100);
 
     final bool isExpense = transaction.type == TransactionType.expense;
-    final categoryColor = colorForCategory(transaction.category);
 
     final Color amountColor = isExpense
       ? colorScheme.error
       : AppColors.income;
 
     return ListTile(
-      leading: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: categoryColor.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Icon(
-          iconForCategory(transaction.category),
-          color: categoryColor,
-          size: 24,
-        ),
-      ),
+      leading: CategoryIconWidget(category: transaction.category),
       trailing: SizedBox(
         width: 100,
         child: FittedBox(
