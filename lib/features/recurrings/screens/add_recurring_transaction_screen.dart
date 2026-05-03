@@ -55,7 +55,11 @@ class _AddRecurringTransactionScreenState extends ConsumerState<AddRecurringTran
           _startDate!.month + 1,
           _startDate!.day.clamp(1, DateTime(_startDate!.year, _startDate!.month + 2, 0).day),
         ),
-      RecurringFrequency.yearly => DateTime(_startDate!.year + 1, _startDate!.month, _startDate!.day),
+      RecurringFrequency.yearly => DateTime(
+          _startDate!.year + 1,
+          _startDate!.month,
+          _startDate!.day.clamp(1, DateTime(_startDate!.year + 1, _startDate!.month + 1, 0).day),
+        ),
     };
   }
 

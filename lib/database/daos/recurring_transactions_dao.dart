@@ -68,7 +68,11 @@ class RecurringTransactionsDao extends DatabaseAccessor<AppDatabase> with _$Recu
             RecurringFrequency.daily => lastProcess.add(Duration(days: i + 1)),
             RecurringFrequency.weekly => lastProcess.add(Duration(days: (i + 1) * 7)),
             RecurringFrequency.monthly => DateTime(lastProcess.year, lastProcess.month + i + 1, lastProcess.day),
-            RecurringFrequency.yearly => DateTime(lastProcess.year + i + 1, lastProcess.month, lastProcess.day),
+            RecurringFrequency.yearly => DateTime(
+                lastProcess.year + i + 1,
+                lastProcess.month,
+                lastProcess.day.clamp(1, DateTime(lastProcess.year + i + 1, lastProcess.month + 1, 0).day),
+              ),
           };
 
           await into(transactions).insert(
