@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vindex/core/providers/currency_formatter_provider.dart';
 
 class LanguageSelector {
   static Future<void> show(BuildContext context) {
@@ -50,7 +51,7 @@ class LanguageSelector {
   }
 }
 
-class _LanguageOption extends StatelessWidget {
+class _LanguageOption extends ConsumerWidget {
   final String title;
   final String flag;
   final Locale locale;
@@ -64,7 +65,7 @@ class _LanguageOption extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isSelected = locale == current;
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -97,6 +98,7 @@ class _LanguageOption extends StatelessWidget {
           await Future.delayed(const Duration(milliseconds: 150));
           if (context.mounted) {
             await context.setLocale(locale);
+            ref.read(localeProvider.notifier).state = locale.toString();
           }
         },
       ),
