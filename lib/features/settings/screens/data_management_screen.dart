@@ -20,81 +20,84 @@ class DataManagementScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(AppStrings.dataManagement.tr())),
-      body: ListView(
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          _SectionTitle(title: AppStrings.backup.tr()),
-          ListTile(
-            leading: const Icon(Icons.upload_file),
-            title: Text(AppStrings.exportData.tr()),
-            subtitle: Text(AppStrings.exportSubtitle.tr()),
-            onTap: () => ExportOptionsSheet.show(context, ref),
-          ),
-          ListTile(
-            leading: const Icon(Icons.download_for_offline),
-            title: Text(AppStrings.importData.tr()),
-            subtitle: Text(AppStrings.importSubtitle.tr()),
-            onTap: () => _confirmAction(
-              context,
-              AppStrings.importWarning.tr(),
+      body: CustomScrollView(
+        slivers: [
+          SliverList(
+            delegate: SliverChildListDelegate([
+              _SectionTitle(title: AppStrings.backup.tr()),
+              ListTile(
+                leading: const Icon(Icons.upload_file),
+                title: Text(AppStrings.exportData.tr()),
+                subtitle: Text(AppStrings.exportSubtitle.tr()),
+                onTap: () => ExportOptionsSheet.show(context, ref),
+              ),
+              ListTile(
+                leading: const Icon(Icons.download_for_offline),
+                title: Text(AppStrings.importData.tr()),
+                subtitle: Text(AppStrings.importSubtitle.tr()),
+                onTap: () => _confirmAction(
+                  context,
+                  AppStrings.importWarning.tr(),
+                      () async {
+                    final result = await ref.read(backupServiceProvider).importBackup();
+                    if (context.mounted) {
+                      final message = switch (result) {
+                        ImportResult.success => AppStrings.importSuccess.tr(),
+                        ImportResult.invalidFile => AppStrings.importInvalidFile.tr(),
+                        ImportResult.cancelled => null,
+                        ImportResult.error => AppStrings.importError.tr(),
+                      };
+                      if (message != null) {
+                        VindexSnackBar.showSnackBar(
+                          context,
+                          message,
+                          isSuccess: result == ImportResult.success
+                        );
+                      }
+                    }
+                  },
+                ),
+              ),
+              const Divider(indent: 16, endIndent: 16),
+              _SectionTitle(title: AppStrings.reset.tr(), isDanger: true),
+              ListTile(
+                leading: Icon(Icons.history, color: colorScheme.error),
+                title: Text(AppStrings.clearTransactions.tr()),
+                onTap: () => _confirmAction(
+                  context,
+                  AppStrings.clearTransactionsDesc.tr(),
                   () async {
-                final result = await ref.read(backupServiceProvider).importBackup();
-                if (context.mounted) {
-                  final message = switch (result) {
-                    ImportResult.success => AppStrings.importSuccess.tr(),
-                    ImportResult.invalidFile => AppStrings.importInvalidFile.tr(),
-                    ImportResult.cancelled => null,
-                    ImportResult.error => AppStrings.importError.tr(),
-                  };
-                  if (message != null) {
-                    VindexSnackBar.showSnackBar(
-                      context,
-                      message,
-                      isSuccess: result == ImportResult.success
-                    );
-                  }
-                }
-              },
-            ),
-          ),
-          const Divider(indent: 16, endIndent: 16),
-          _SectionTitle(title: AppStrings.reset.tr(), isDanger: true),
-          ListTile(
-            leading: Icon(Icons.history, color: colorScheme.error),
-            title: Text(AppStrings.clearTransactions.tr()),
-            onTap: () => _confirmAction(
-              context,
-              AppStrings.clearTransactionsDesc.tr(),
-              () async {
-                await ref.read(transactionDaoProvider).deleteAllTransactions();
-              },
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.event_repeat, color: colorScheme.error),
-            title: Text(AppStrings.clearRecurring.tr()),
-            onTap: () => _confirmAction(
-              context,
-              AppStrings.clearRecurringDesc.tr(),
-              () async {
-                await ref.read(recurringTransactionDaoProvider).deleteAllRecurringTransactions();
-              },
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.factory_outlined, color: colorScheme.error),
-            title: Text(
-              AppStrings.factoryReset.tr(),
-              style: TextStyle(color: colorScheme.error, fontWeight: FontWeight.bold),
-            ),
-            onTap: () => _confirmAction(
-              context,
-              AppStrings.factoryResetDesc.tr(),
-              () async {
-                await ref.read(transactionDaoProvider).deleteAllTransactions();
-                await ref.read(recurringTransactionDaoProvider).deleteAllRecurringTransactions();
-              },
-            ),
+                    await ref.read(transactionDaoProvider).deleteAllTransactions();
+                  },
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.event_repeat, color: colorScheme.error),
+                title: Text(AppStrings.clearRecurring.tr()),
+                onTap: () => _confirmAction(
+                  context,
+                  AppStrings.clearRecurringDesc.tr(),
+                  () async {
+                    await ref.read(recurringTransactionDaoProvider).deleteAllRecurringTransactions();
+                  },
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.factory_outlined, color: colorScheme.error),
+                title: Text(
+                  AppStrings.factoryReset.tr(),
+                  style: TextStyle(color: colorScheme.error, fontWeight: FontWeight.bold),
+                ),
+                onTap: () => _confirmAction(
+                  context,
+                  AppStrings.factoryResetDesc.tr(),
+                  () async {
+                    await ref.read(transactionDaoProvider).deleteAllTransactions();
+                    await ref.read(recurringTransactionDaoProvider).deleteAllRecurringTransactions();
+                  },
+                ),
+              ),
+            ]),
           ),
         ],
       ),

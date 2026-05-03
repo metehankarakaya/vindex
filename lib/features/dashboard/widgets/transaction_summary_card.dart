@@ -39,22 +39,20 @@ class TransactionSummaryCard extends ConsumerWidget {
           ),
         ),
         const SizedBox(width: 12),
-        Flexible(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: Theme.of(context).textTheme.labelMedium),
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  isHide ? "${formatter.currencySymbol}******" : formattedAmount,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: Theme.of(context).textTheme.labelMedium),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                isHide ? "${formatter.currencySymbol}******" : formattedAmount,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );
