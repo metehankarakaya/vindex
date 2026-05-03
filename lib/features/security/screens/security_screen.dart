@@ -64,21 +64,19 @@ class SecurityScreen extends ConsumerWidget {
               hasScrollBody: false,
               child: Align(
                 alignment: .bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  child: Card(
-                    elevation: 0,
-                    color: colorScheme.surfaceContainerLow,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Text(
-                        AppStrings.pinForgotWarning.tr(),
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onSurfaceVariant.withOpacity(0.7),
-                        ),
-                        textAlign: .center,
+                child: Card(
+                  elevation: 0,
+                  margin: const EdgeInsets.only(bottom: 16.0),
+                  color: colorScheme.surfaceContainerLow,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Text(
+                      AppStrings.pinForgotWarning.tr(),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurfaceVariant.withOpacity(0.7),
                       ),
+                      textAlign: .center,
                     ),
                   ),
                 ),

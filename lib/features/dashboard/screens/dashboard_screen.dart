@@ -101,7 +101,7 @@ class DashboardScreen extends ConsumerWidget {
           ),
           recentTransactions.isNotEmpty
           ? SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             sliver: SliverList.separated(
               separatorBuilder: (context, index) => Divider(
                 height: 1,
