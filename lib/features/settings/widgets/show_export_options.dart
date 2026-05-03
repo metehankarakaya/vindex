@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../../../core/providers/backup_provider.dart';
 
 class ExportOptionsSheet {
@@ -32,9 +34,9 @@ class ExportOptionsSheet {
               ListTile(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 leading: Icon(Icons.lock_open_outlined, color: colorScheme.primary),
-                title: const Text("Şifresiz Export (.csv)",
-                style: TextStyle(fontWeight: FontWeight.w600)),
-                subtitle: const Text("Excel veya Google Tablolar'da açılabilir"),
+                title: Text(AppStrings.exportUnencrypted.tr(),
+                style: const TextStyle(fontWeight: FontWeight.w600)),
+                subtitle: Text(AppStrings.exportUnencryptedSubtitle.tr()),
                 onTap: () async {
                   Navigator.pop(context);
                   await ref.read(backupServiceProvider).exportBackup(encrypted: false);
@@ -44,9 +46,9 @@ class ExportOptionsSheet {
               ListTile(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 leading: Icon(Icons.lock_outlined, color: colorScheme.secondary),
-                title: const Text("Şifreli Export (.vbk)",
-                style: TextStyle(fontWeight: FontWeight.w600)),
-                subtitle: const Text("Sadece Vindex üzerinden geri yüklenebilir"),
+                title: Text(AppStrings.exportEncrypted.tr(),
+                style: const TextStyle(fontWeight: FontWeight.w600)),
+                subtitle: Text(AppStrings.exportEncryptedSubtitle.tr()),
                 onTap: () async {
                   Navigator.pop(context);
                   await ref.read(backupServiceProvider).exportBackup(encrypted: true);
