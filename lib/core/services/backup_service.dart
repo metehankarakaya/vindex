@@ -113,24 +113,34 @@ class BackupService {
       final result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ["csv", "vbk", "BIN"],
+        withData: true,
       );
 
       if (result == null) return ImportResult.cancelled;
 
-      final path = result.files.single.path;
-      if (path == null) return ImportResult.error;
+      final platformFile = result.files.single;
+      final path = platformFile.path;
+      final fileName = platformFile.name;
 
-      final file = File(path);
       final String content;
+      final bool isVbk = fileName.endsWith('.vbk') || (path?.endsWith('.vbk') ?? false);
 
-      if (path.endsWith('.vbk')) {
+      if (isVbk) {
         try {
-          content = _decrypt(await file.readAsBytes());
+          final bytes = platformFile.bytes ?? (path != null ? await File(path).readAsBytes() : null);
+          if (bytes == null) return ImportResult.error;
+          content = _decrypt(bytes);
         } catch (_) {
           return ImportResult.invalidFile;
         }
       } else {
-        content = await file.readAsString();
+        if (platformFile.bytes != null) {
+          content = utf8.decode(platformFile.bytes!);
+        } else if (path != null) {
+          content = await File(path).readAsString();
+        } else {
+          return ImportResult.error;
+        }
       }
 
       final lines = content.split('\n');
