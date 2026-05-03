@@ -34,22 +34,33 @@ class BackupService {
   static const _recurringSection = 'VINDEX_RECURRING';
   // 32-byte key required for AES-256
   static const _aesKey = 'VINDEX_BACKUP_KEY_2024_SECURE_V1';
+  static const _magic = [0x56, 0x42, 0x4B, 0x31]; // VBK1
 
   Uint8List _encrypt(String input) {
     final key = enc.Key.fromUtf8(_aesKey);
     final iv = enc.IV.fromSecureRandom(12);
     final encrypter = enc.Encrypter(enc.AES(key, mode: enc.AESMode.gcm));
     final encrypted = encrypter.encryptBytes(utf8.encode(input), iv: iv);
-    final combined = Uint8List(12 + encrypted.bytes.length);
-    combined.setAll(0, iv.bytes);
-    combined.setAll(12, encrypted.bytes);
+    final combined = Uint8List(4 + 12 + encrypted.bytes.length);
+    combined.setAll(0, _magic);
+    combined.setAll(4, iv.bytes);
+    combined.setAll(16, encrypted.bytes);
     return combined;
   }
 
+  static bool _hasVbkMagic(Uint8List bytes) {
+    if (bytes.length < 4) return false;
+    return bytes[0] == _magic[0] &&
+           bytes[1] == _magic[1] &&
+           bytes[2] == _magic[2] &&
+           bytes[3] == _magic[3];
+  }
+
   String _decrypt(Uint8List combined) {
-    if (combined.length <= 28) throw FormatException('Invalid backup data');
-    final iv = enc.IV(Uint8List.fromList(combined.sublist(0, 12)));
-    final cipherBytes = enc.Encrypted(Uint8List.fromList(combined.sublist(12)));
+    // skip 4-byte magic header
+    if (combined.length <= 32) throw FormatException('Invalid backup data');
+    final iv = enc.IV(Uint8List.fromList(combined.sublist(4, 16)));
+    final cipherBytes = enc.Encrypted(Uint8List.fromList(combined.sublist(16)));
     final key = enc.Key.fromUtf8(_aesKey);
     final encrypter = enc.Encrypter(enc.AES(key, mode: enc.AESMode.gcm));
     return utf8.decode(encrypter.decryptBytes(cipherBytes, iv: iv));
@@ -120,27 +131,26 @@ class BackupService {
 
       final platformFile = result.files.single;
       final path = platformFile.path;
-      final fileName = platformFile.name;
+
+      final Uint8List bytes;
+      if (platformFile.bytes != null) {
+        bytes = platformFile.bytes!;
+      } else if (path != null) {
+        bytes = await File(path).readAsBytes();
+      } else {
+        return ImportResult.error;
+      }
 
       final String content;
-      final bool isVbk = fileName.endsWith('.vbk') || (path?.endsWith('.vbk') ?? false);
 
-      if (isVbk) {
+      if (_hasVbkMagic(bytes)) {
         try {
-          final bytes = platformFile.bytes ?? (path != null ? await File(path).readAsBytes() : null);
-          if (bytes == null) return ImportResult.error;
           content = _decrypt(bytes);
         } catch (_) {
           return ImportResult.invalidFile;
         }
       } else {
-        if (platformFile.bytes != null) {
-          content = utf8.decode(platformFile.bytes!);
-        } else if (path != null) {
-          content = await File(path).readAsString();
-        } else {
-          return ImportResult.error;
-        }
+        content = utf8.decode(bytes);
       }
 
       final lines = content.split('\n');
