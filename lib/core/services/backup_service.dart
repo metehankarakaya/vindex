@@ -191,10 +191,12 @@ class BackupService {
       if (line.isEmpty) continue;
       final fields = _parseCsvLine(line);
       if (fields.length < 6) throw Exception('Invalid transaction line');
+      final amountCents = int.parse(fields[2]);
+      if (amountCents < 0 || amountCents > 999_999_999_99) continue;
       result.add(TransactionsCompanion(
         id: Value(fields[0]),
         title: Value(fields[1]),
-        amountCents: Value(int.parse(fields[2])),
+        amountCents: Value(amountCents),
         category: Value(fields[3]),
         type: Value(TransactionType.values.byName(fields[4])),
         createdAt: Value(DateTime.parse(fields[5])),
@@ -210,10 +212,12 @@ class BackupService {
       if (line.isEmpty) continue;
       final fields = _parseCsvLine(line);
       if (fields.length < 10) throw Exception('Invalid recurring line');
+      final amountCents = int.parse(fields[2]);
+      if (amountCents < 0 || amountCents > 999_999_999_99) continue;
       result.add(RecurringTransactionsCompanion(
         id: Value(fields[0]),
         title: Value(fields[1]),
-        amountCents: Value(int.parse(fields[2])),
+        amountCents: Value(amountCents),
         category: Value(fields[3]),
         type: Value(TransactionType.values.byName(fields[4])),
         frequency: Value(RecurringFrequency.values.byName(fields[5])),
