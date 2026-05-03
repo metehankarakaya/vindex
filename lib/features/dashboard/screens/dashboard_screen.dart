@@ -7,6 +7,7 @@ import 'package:vindex/features/dashboard/widgets/total_balance_title.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/models/transactions_table.dart';
 import '../../../core/widgets/empty_holder.dart';
+import '../../../core/widgets/test_data_fab.dart';
 import '../../transactions/screens/add_transaction_modal.dart';
 import '../../transactions/widgets/transaction_list_item.dart';
 import '../provider/dashboard_provider.dart';
@@ -119,9 +120,18 @@ class DashboardScreen extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => AddTransactionModal.show(context),
-        child: Icon(Icons.add),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          const TestDataFab(),
+          const SizedBox(height: 8),
+          FloatingActionButton(
+            heroTag: 'add_fab',
+            onPressed: () => AddTransactionModal.show(context),
+            child: const Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }
