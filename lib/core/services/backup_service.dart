@@ -37,9 +37,9 @@ class BackupService {
 
   String _encrypt(String input) {
     final key = enc.Key.fromUtf8(_aesKey);
-    final iv = enc.IV.fromSecureRandom(12); // 96-bit nonce for GCM
+    final iv = enc.IV.fromSecureRandom(12);
     final encrypter = enc.Encrypter(enc.AES(key, mode: enc.AESMode.gcm));
-    final encrypted = encrypter.encrypt(input, iv: iv);
+    final encrypted = encrypter.encryptBytes(utf8.encode(input), iv: iv);
     final combined = Uint8List(12 + encrypted.bytes.length);
     combined.setAll(0, iv.bytes);
     combined.setAll(12, encrypted.bytes);
@@ -47,12 +47,13 @@ class BackupService {
   }
 
   String _decrypt(String input) {
-    final combined = base64Decode(input);
+    final combined = base64Decode(input.trim());
+    if (combined.length <= 28) throw FormatException('Invalid backup data');
     final iv = enc.IV(Uint8List.fromList(combined.sublist(0, 12)));
     final cipherBytes = enc.Encrypted(Uint8List.fromList(combined.sublist(12)));
     final key = enc.Key.fromUtf8(_aesKey);
     final encrypter = enc.Encrypter(enc.AES(key, mode: enc.AESMode.gcm));
-    return encrypter.decrypt(cipherBytes, iv: iv);
+    return utf8.decode(encrypter.decryptBytes(cipherBytes, iv: iv));
   }
 
   String _escapeField(String field) {
@@ -119,7 +120,11 @@ class BackupService {
       String content = await file.readAsString();
 
       if (path.endsWith('.vbk')) {
-        content = _decrypt(content);
+        try {
+          content = _decrypt(content);
+        } catch (_) {
+          return ImportResult.invalidFile;
+        }
       }
 
       final lines = content.split('\n');
