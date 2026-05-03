@@ -96,12 +96,12 @@ class _LanguageOption extends ConsumerWidget {
         onTap: () async {
           Navigator.pop(context);
           await Future.delayed(const Duration(milliseconds: 150));
-          if (context.mounted) {
-            await context.setLocale(locale);
-            ref.read(localeProvider.notifier).state = (locale.countryCode?.isNotEmpty == true)
-                ? '${locale.languageCode}_${locale.countryCode}'
-                : locale.languageCode;
-          }
+          if (!context.mounted) return;
+          await context.setLocale(locale);
+          if (!context.mounted) return;
+          ref.read(localeProvider.notifier).state = (locale.countryCode?.isNotEmpty == true)
+              ? '${locale.languageCode}_${locale.countryCode}'
+              : locale.languageCode;
         },
       ),
     );
