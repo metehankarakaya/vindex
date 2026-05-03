@@ -13,4 +13,4 @@ final transactionStreamProvider = StreamProvider<List<Transaction>>((ref) {
   return ref.watch(transactionDaoProvider).getAllTransactions(limit: page * 20);
 });
 
-final transactionPageProvider = StateProvider<int>((ref) => 1);
+final transactionPageProvider = StateProvider.autoDispose<int>((ref) => 1);
