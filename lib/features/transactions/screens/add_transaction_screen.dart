@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vindex/core/constants/app_strings.dart';
 import 'package:vindex/core/utils/currency_input_formatter.dart';
+import 'package:vindex/core/utils/vindex_snackbar.dart';
 import 'package:vindex/core/widgets/category_selector.dart';
 import 'package:vindex/core/widgets/save_transaction_button.dart';
 import 'package:vindex/core/widgets/transaction_type_selector.dart';
@@ -55,7 +56,10 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
       if (mounted) Navigator.pop(context);
     } catch (e) {
-      if (mounted) setState(() => _isSaving = false);
+      if (mounted) {
+        setState(() => _isSaving = false);
+        VindexSnackBar.showSnackBar(context, AppStrings.saveTransactionError.tr());
+      }
     }
   }
 

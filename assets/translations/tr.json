@@ -71,6 +71,7 @@
   "categoryDistribution": "Kategori Dağılımı",
   "totalInstantTransactions": "Anlık İşlem",
   "totalRecurringTransactions": "Tekrarlayan İşlem",
+  "saveTransactionError": "İşlem kaydedilemedi.",
   "importWarning": "İçe aktarma mevcut verilerinizi etkileyebilir.",
   "importSuccess": "Veriler başarıyla içe aktarıldı.",
   "importInvalidFile": "Geçersiz dosya formatı.",
