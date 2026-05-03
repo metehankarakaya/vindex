@@ -112,5 +112,6 @@
   "pinChangeNewTitle": "New PIN",
   "pinChangeNewSubtitle": "Enter your new PIN",
   "pinChangeConfirmTitle": "Confirm New PIN",
-  "pinChangeConfirmSubtitle": "Enter your new PIN again"
+  "pinChangeConfirmSubtitle": "Enter your new PIN again",
+  "loading": "Loading"
 }

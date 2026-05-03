@@ -1,4 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import '../constants/app_strings.dart';
 
 class SaveTransactionButton extends StatelessWidget {
   final String label;
@@ -47,6 +50,7 @@ class SaveTransactionButton extends StatelessWidget {
           child: CircularProgressIndicator(
             strokeWidth: 2,
             color: colorScheme.onPrimary.withValues(alpha: 0.7),
+            semanticsLabel: AppStrings.loading.tr(),
           ),
         )
           : Row(

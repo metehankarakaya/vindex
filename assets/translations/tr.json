@@ -112,5 +112,6 @@
   "pinChangeNewTitle": "Yeni PIN",
   "pinChangeNewSubtitle": "Yeni PIN'inizi girin",
   "pinChangeConfirmTitle": "Yeni PIN Onayla",
-  "pinChangeConfirmSubtitle": "Yeni PIN'inizi tekrar girin"
+  "pinChangeConfirmSubtitle": "Yeni PIN'inizi tekrar girin",
+  "loading": "Yükleniyor"
 }

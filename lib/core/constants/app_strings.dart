@@ -129,6 +129,8 @@ class AppStrings {
   static const String pinChangeNewSubtitle = "pinChangeNewSubtitle";
   static const String pinChangeConfirmTitle = "pinChangeConfirmTitle";
   static const String pinChangeConfirmSubtitle = "pinChangeConfirmSubtitle";
+
+  static const String loading = "loading";
 }
 
 const List<String> categories = [

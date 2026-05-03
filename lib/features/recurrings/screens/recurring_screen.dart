@@ -68,7 +68,9 @@ class RecurringScreen extends ConsumerWidget {
             loading: () => SliverFillRemaining(
               hasScrollBody: false,
               child: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  semanticsLabel: AppStrings.loading.tr(),
+                ),
               ),
             ),
             error: (err, stackTrace) => SliverToBoxAdapter(

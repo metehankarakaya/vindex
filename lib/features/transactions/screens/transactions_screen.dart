@@ -109,7 +109,9 @@ class TransactionsScreenState extends ConsumerState<TransactionsScreen> {
             loading: () => SliverFillRemaining(
               hasScrollBody: false,
               child: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  semanticsLabel: AppStrings.loading.tr(),
+                ),
               ),
             ),
             error: (err, stack) => SliverToBoxAdapter(
