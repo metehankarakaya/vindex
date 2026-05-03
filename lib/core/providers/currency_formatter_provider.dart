@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,7 +8,13 @@ import 'shared_preferences_provider.dart';
 
 final localeProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
-  return prefs.getString('locale') ?? 'tr';
+  final saved = prefs.getString('locale');
+  if (saved != null) return saved;
+
+  final system = PlatformDispatcher.instance.locale;
+  return (system.countryCode?.isNotEmpty == true)
+      ? '${system.languageCode}_${system.countryCode}'
+      : system.languageCode;
 });
 
 final currencyFormatterProvider = Provider<NumberFormat>((ref) {
