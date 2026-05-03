@@ -43,10 +43,20 @@ class BackupService {
     final combined = Uint8List(12 + encrypted.bytes.length);
     combined.setAll(0, iv.bytes);
     combined.setAll(12, encrypted.bytes);
-    return base64Encode(combined);
+    final result = base64Encode(combined);
+    // DEBUG — remove after testing
+    print('[BackupService] _encrypt output length: ${result.length}');
+    print('[BackupService] _encrypt output (first 80 chars): ${result.substring(0, result.length.clamp(0, 80))}');
+    print('[BackupService] _encrypt output (last 20 chars): ${result.substring((result.length - 20).clamp(0, result.length))}');
+    return result;
   }
 
   String _decrypt(String input) {
+    // DEBUG — remove after testing
+    print('[BackupService] _decrypt input length: ${input.length}');
+    print('[BackupService] _decrypt input (first 80 chars): ${input.substring(0, input.length.clamp(0, 80))}');
+    print('[BackupService] _decrypt input (last 20 chars): ${input.substring((input.length - 20).clamp(0, input.length))}');
+    print('[BackupService] _decrypt trailing bytes: ${input.codeUnits.reversed.take(4).toList()}');
     final combined = base64Decode(input.trim());
     if (combined.length <= 28) throw FormatException('Invalid backup data');
     final iv = enc.IV(Uint8List.fromList(combined.sublist(0, 12)));
