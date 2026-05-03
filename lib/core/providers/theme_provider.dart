@@ -15,7 +15,7 @@ class ThemeNotifier extends Notifier<ThemeMode> {
       orElse: () => ThemeMode.system,
     );
   }
-  void setTheme(ThemeMode mode) async {
+  Future<void> setTheme(ThemeMode mode) async {
     state = mode;
     final prefs = ref.read(sharedPreferencesProvider);
     await prefs.setString(_key, mode.name);

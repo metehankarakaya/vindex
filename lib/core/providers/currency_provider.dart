@@ -15,7 +15,7 @@ class CurrencyNotifier extends Notifier<CurrencyOption> {
     );
   }
 
-  void setCurrency(CurrencyOption currency) async {
+  Future<void> setCurrency(CurrencyOption currency) async {
     state = currency;
     final prefs = ref.read(sharedPreferencesProvider);
     await prefs.setString(_key, currency.code);
