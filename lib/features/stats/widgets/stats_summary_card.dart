@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vindex/core/constants/app_colors.dart';
 import 'package:vindex/core/constants/app_strings.dart';
 
 import '../../../core/providers/currency_formatter_provider.dart';
@@ -61,7 +62,7 @@ class StatsSummaryCard extends ConsumerWidget {
                 MiniStat(
                   label: AppStrings.totalIncome.tr(),
                   value: formatter.format(incomeStats / 100),
-                  color: Colors.greenAccent.shade700,
+                  color: AppColors.income,
                 ),
                 Container(
                   width: 1,

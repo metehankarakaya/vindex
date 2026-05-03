@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
+
 class VindexSnackBar {
   static void showSnackBar(BuildContext context, String message, {bool isSuccess = false}) {
     final theme = Theme.of(context);
@@ -17,7 +19,7 @@ class VindexSnackBar {
         ),
         behavior: SnackBarBehavior.floating,
         backgroundColor: isSuccess
-          ? Colors.greenAccent[700]
+          ? AppColors.income
           : theme.colorScheme.surfaceContainerHighest,
         margin: const EdgeInsets.fromLTRB(16, 0, 16, 24),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

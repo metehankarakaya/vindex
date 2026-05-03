@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 
 IconData iconForCategory(String category) {
@@ -19,15 +20,15 @@ IconData iconForCategory(String category) {
 
 Color colorForCategory(String category) {
   switch (category) {
-    case AppStrings.market: return Colors.blue;
-    case AppStrings.restaurant: return Colors.orange;
-    case AppStrings.transport: return Colors.purple;
-    case AppStrings.subscription: return Colors.deepPurple;
-    case AppStrings.bills: return Colors.red;
-    case AppStrings.health: return Colors.teal;
-    case AppStrings.entertainment: return Colors.pink;
-    case AppStrings.salary: return Colors.green;
-    case AppStrings.other: return Colors.grey;
-    default: return Colors.grey;
+    case AppStrings.market: return CategoryColors.market;
+    case AppStrings.restaurant: return CategoryColors.restaurant;
+    case AppStrings.transport: return CategoryColors.transport;
+    case AppStrings.subscription: return CategoryColors.subscription;
+    case AppStrings.bills: return CategoryColors.bills;
+    case AppStrings.health: return CategoryColors.health;
+    case AppStrings.entertainment: return CategoryColors.entertainment;
+    case AppStrings.salary: return CategoryColors.salary;
+    case AppStrings.other: return CategoryColors.other;
+    default: return CategoryColors.other;
   }
 }
