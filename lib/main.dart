@@ -65,6 +65,7 @@ class MyApp extends ConsumerWidget {
           surface: AppColors.surface,
         ),
         scaffoldBackgroundColor: AppColors.surface,
+        appBarTheme: const AppBarTheme(surfaceTintColor: Colors.transparent),
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
@@ -72,6 +73,7 @@ class MyApp extends ConsumerWidget {
           seedColor: AppColors.primary,
           brightness: Brightness.dark,
         ),
+        appBarTheme: const AppBarTheme(surfaceTintColor: Colors.transparent),
       ),
       themeMode: ref.watch(themeModeProvider),
     );

@@ -30,7 +30,6 @@ class SettingsScreen extends ConsumerWidget {
             pinned: true,
             stretch: true,
             backgroundColor: theme.scaffoldBackgroundColor,
-            surfaceTintColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(AppStrings.settings.tr(), style: theme.textTheme.titleMedium),
               titlePadding: const EdgeInsetsDirectional.only(start: 16, bottom: 16),
