@@ -52,6 +52,9 @@ dependencies:
   # Localization
   easy_localization: ^3.0.8
 
+  # Encryption
+  encrypt: ^5.0.3
+
   # Models
   freezed_annotation: ^3.1.0
 

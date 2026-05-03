@@ -8,7 +8,9 @@
       "Bash(git commit *)",
       "Bash(git add *)",
       "Bash(git push *)",
-      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\user\\\\Documents\\\\GitHub\\\\vindex\" -Recurse -Directory | Where-Object { $_.Name -eq \"lib\" -or $_.Name -eq \"assets\" -or $_.Name -eq \"test\" } | Select-Object -ExpandProperty FullName)"
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\user\\\\Documents\\\\GitHub\\\\vindex\" -Recurse -Directory | Where-Object { $_.Name -eq \"lib\" -or $_.Name -eq \"assets\" -or $_.Name -eq \"test\" } | Select-Object -ExpandProperty FullName)",
+      "Bash(flutter pub *)",
+      "Bash(dart analyze *)"
     ]
   }
 }

@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:drift/drift.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:encrypt/encrypt.dart' as enc;
 import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../database/app_database.dart';
@@ -31,21 +32,27 @@ class BackupService {
   static const _header = 'VINDEX_BACKUP_V1';
   static const _transactionsSection = 'VINDEX_TRANSACTIONS';
   static const _recurringSection = 'VINDEX_RECURRING';
-  static const _xorKey = 'VINDEX_KEY';
-
-  String _xorCipher(String input) {
-    return String.fromCharCodes(
-      Iterable.generate(input.length, (i) =>
-      input.codeUnitAt(i) ^ _xorKey.codeUnitAt(i % _xorKey.length)),
-    );
-  }
+  // 32-byte key required for AES-256
+  static const _aesKey = 'VINDEX_BACKUP_KEY_2024_SECURE_V1';
 
   String _encrypt(String input) {
-    return base64Encode(utf8.encode(_xorCipher(input)));
+    final key = enc.Key.fromUtf8(_aesKey);
+    final iv = enc.IV.fromSecureRandom(12); // 96-bit nonce for GCM
+    final encrypter = enc.Encrypter(enc.AES(key, mode: enc.AESMode.gcm));
+    final encrypted = encrypter.encrypt(input, iv: iv);
+    final combined = Uint8List(12 + encrypted.bytes.length);
+    combined.setAll(0, iv.bytes);
+    combined.setAll(12, encrypted.bytes);
+    return base64Encode(combined);
   }
 
   String _decrypt(String input) {
-    return _xorCipher(utf8.decode(base64Decode(input)));
+    final combined = base64Decode(input);
+    final iv = enc.IV(Uint8List.fromList(combined.sublist(0, 12)));
+    final cipherBytes = enc.Encrypted(Uint8List.fromList(combined.sublist(12)));
+    final key = enc.Key.fromUtf8(_aesKey);
+    final encrypter = enc.Encrypter(enc.AES(key, mode: enc.AESMode.gcm));
+    return encrypter.decrypt(cipherBytes, iv: iv);
   }
 
   String _escapeField(String field) {
